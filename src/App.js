@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import TodoPreview from './components/todo-preview/todo-preview.component';
+import TodoForm from './components/todo-form/todo-form-component';
+import './App.scss';
 
-function App() {
+const App = () => {
+    const [tasks, setTasks] = useState([]);
+    const [newTask, setNewTask] = useState('');
+
+    const handleAddTask = () => {
+        setTasks([...tasks, newTask]);
+    };
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+
+        setNewTask({
+            title: value,
+            description: 'description',
+            categories: 'categories',
+        });
+    };
+
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
+        <div className="todo__app">
+            <h1>To-Do List App</h1>
+            <TodoForm
+                handleAddTask={handleAddTask}
+                handleChange={handleChange}
+            />
+            <TodoPreview tasks={tasks} />
         </div>
     );
-}
+};
 
 export default App;
