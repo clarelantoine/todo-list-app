@@ -9,9 +9,11 @@ const TodoPreview = () => {
 
     return (
         <div className="todo__preview">
-            {tasks.map((task, index) => (
-                <TodoCard key={index} task={task} />
-            ))}
+            {tasks.length ? (
+                tasks.map((task, index) => <TodoCard key={index} task={task} />)
+            ) : (
+                <p>You have no task yet...</p>
+            )}
         </div>
     );
 };
