@@ -1,20 +1,25 @@
 import { useContext } from 'react';
+
 import { TaskContext } from '../../contexts/task.context';
-import './todo-card.styles.scss';
+import {
+    CloseButton,
+    TodoCardContainer,
+    TodoCardWrapper,
+} from './todo-card.styles.jsx';
 
 const TodoCard = ({ task }) => {
-    const { id, title, description, categories } = task;
+    // eslint-disable-next-line
+const { description, categories } = task;
 
     const { deleteTaskItem } = useContext(TaskContext);
     return (
-        <div className="todo__card">
-            <div className="todo__card__wrapper">
-                <span className="todo__card__title">{`Task: ${id} / ${title}`}</span>
-                {/* <p className="todo__card__description">{description}</p> */}
+        <TodoCardContainer>
+            <TodoCardWrapper>
+                <p>{description}</p>
                 {/* <p className="todo__card__categories">{categories}</p> */}
-                <span onClick={() => deleteTaskItem(task)}>X</span>
-            </div>
-        </div>
+            </TodoCardWrapper>
+            <CloseButton onClick={() => deleteTaskItem(task)} />
+        </TodoCardContainer>
     );
 };
 export default TodoCard;

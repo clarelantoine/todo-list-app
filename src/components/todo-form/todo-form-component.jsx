@@ -9,7 +9,7 @@ const TodoForm = () => {
     const [task, setTask] = useState('');
 
     // get add task function from context
-    const { tasks, addTaskItem } = useContext(TaskContext);
+    const { addTaskItem } = useContext(TaskContext);
 
     // on form field change event handler
     const onChangeHandler = (event) => {
@@ -30,9 +30,8 @@ const TodoForm = () => {
 
         // create the task object to add
         const taskObject = {
-            id: tasks.length + 1,
-            title: task,
-            description: 'description',
+            id: crypto.randomUUID(),
+            description: task,
             categories: 'categories',
         };
 
@@ -44,7 +43,7 @@ const TodoForm = () => {
         <div className="todo__form">
             <div className="todo__form__wrapper">
                 <FormInput
-                    name="title"
+                    name="description"
                     type="text"
                     placeholder="Add a task"
                     onChange={onChangeHandler}

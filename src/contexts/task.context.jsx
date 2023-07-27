@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 
 // add new task item handler logic
-const addTaskItemHandler = (tasks, taskToAdd) => [...tasks, taskToAdd];
+const addTaskItemHandler = (tasks, taskToAdd) => [taskToAdd, ...tasks];
 
 // delete task item handle logic
 const deleteTaskItemHandler = (tasks, taskToDelete) =>

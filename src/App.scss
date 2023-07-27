@@ -1,5 +1,12 @@
 .todo__app {
   width: 100%;
-  max-width: 720px;
+  max-width: 1140px;
   margin: auto;
+
+  .todo__app__title {
+    font-size: 48px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    
+  }
 }

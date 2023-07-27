@@ -4,7 +4,7 @@ import './App.scss';
 
 const App = () => (
     <div className="todo__app">
-        <h1>To-Do List App!</h1>
+        <h1 className="todo__app__title">Notes</h1>
         <TodoForm />
         <TodoPreview />
     </div>
