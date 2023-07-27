@@ -9,7 +9,7 @@ const TodoForm = () => {
     const [task, setTask] = useState('');
 
     // get add task function from context
-    const { addTaskItem } = useContext(TaskContext);
+    const { tasks, addTaskItem } = useContext(TaskContext);
 
     // on form field change event handler
     const onChangeHandler = (event) => {
@@ -30,6 +30,7 @@ const TodoForm = () => {
 
         // create the task object to add
         const taskObject = {
+            id: tasks.length + 1,
             title: task,
             description: 'description',
             categories: 'categories',
