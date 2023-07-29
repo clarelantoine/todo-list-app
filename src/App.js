@@ -1,13 +1,13 @@
-import TodoPreview from './components/todo-preview/todo-preview.component';
-import TodoForm from './components/todo-form/todo-form-component';
-import './App.scss';
+import Contents from './components/contents/contents.component';
+import Sidebar from './components/sidebar/sidebar.component';
+
+import { AppContainer } from './App.styles.jsx';
 
 const App = () => (
-    <div className="todo__app">
-        <h1 className="todo__app__title">Notes</h1>
-        <TodoForm />
-        <TodoPreview />
-    </div>
+    <AppContainer>
+        <Sidebar />
+        <Contents />
+    </AppContainer>
 );
 
 export default App;
