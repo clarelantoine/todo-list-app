@@ -8,13 +8,12 @@ const deleteTaskItemHandler = (tasks, taskToDelete) =>
     tasks.filter((task) => task.id !== taskToDelete.id);
 
 /**
- * Delete task item
+ * TO-DO
  * Update task item
  */
 
 export const TaskContext = createContext({
     tasks: [],
-    setTasks: () => {},
     addTaskItem: () => {},
     deleteTaskItem: () => {},
 });
@@ -22,21 +21,32 @@ export const TaskContext = createContext({
 export const TaskProvider = ({ children }) => {
     const [tasks, setTasks] = useState([]);
 
+    // add task handler
     const addTaskItem = (taskToAdd) => {
         const newTasksArray = addTaskItemHandler(tasks, taskToAdd);
         setTasks(newTasksArray);
     };
 
+    // delete task handler
     const deleteTaskItem = (taskToDelete) => {
         const newTasksArray = deleteTaskItemHandler(tasks, taskToDelete);
         setTasks(newTasksArray);
     };
 
+    // get values from localStorage and set values on initial render
     useEffect(() => {
-        console.log(tasks);
+        const localTasks = JSON.parse(localStorage.getItem('tasks'));
+        if (localTasks.length) {
+            setTasks(localTasks);
+        }
+    }, []);
+
+    // update localStorage when state update
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
     }, [tasks]);
 
-    const value = { tasks, setTasks, addTaskItem, deleteTaskItem };
+    const value = { tasks, addTaskItem, deleteTaskItem };
 
     return (
         <TaskContext.Provider value={value}>{children}</TaskContext.Provider>
