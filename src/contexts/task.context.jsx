@@ -7,6 +7,11 @@ const addTaskItemHandler = (tasks, taskToAdd) => [taskToAdd, ...tasks];
 const deleteTaskItemHandler = (tasks, taskToDelete) =>
     tasks.filter((task) => task.id !== taskToDelete.id);
 
+// get values from localStorage else return []
+const getInitialTaskState = () => {
+    const tasks = localStorage.getItem('tasks');
+    return tasks ? JSON.parse(tasks) : [];
+};
 /**
  * TO-DO
  * Update task item
@@ -19,7 +24,7 @@ export const TaskContext = createContext({
 });
 
 export const TaskProvider = ({ children }) => {
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState(getInitialTaskState);
 
     // add task handler
     const addTaskItem = (taskToAdd) => {
@@ -32,14 +37,6 @@ export const TaskProvider = ({ children }) => {
         const newTasksArray = deleteTaskItemHandler(tasks, taskToDelete);
         setTasks(newTasksArray);
     };
-
-    // get values from localStorage and set values on initial render
-    useEffect(() => {
-        const localTasks = JSON.parse(localStorage.getItem('tasks'));
-        if (localTasks.length) {
-            setTasks(localTasks);
-        }
-    }, []);
 
     // update localStorage when state update
     useEffect(() => {
