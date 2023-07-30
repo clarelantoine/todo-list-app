@@ -3,10 +3,18 @@ import FormInput from '../form-input/form-input.component';
 import { TaskContext } from '../../contexts/task.context';
 
 import './todo-form.styles.scss';
+import { filterColors } from '../../index.styles';
 
 const TodoForm = () => {
     // states for form fields
     const [task, setTask] = useState('');
+
+    const randomCardColor =
+        filterColors[
+            Object.keys(filterColors)[
+                Math.floor(Math.random() * Object.keys(filterColors).length)
+            ]
+        ];
 
     // get add task function from context
     const { addTaskItem } = useContext(TaskContext);
@@ -33,6 +41,8 @@ const TodoForm = () => {
             id: crypto.randomUUID(),
             description: task,
             categories: 'categories',
+            createdDate: new Date(),
+            bgColor: randomCardColor,
         };
 
         addTaskItem(taskObject);

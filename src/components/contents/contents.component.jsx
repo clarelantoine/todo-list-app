@@ -5,11 +5,11 @@ import TodoPreview from '../todo-preview/todo-preview.component';
 
 import { ContentsContainer } from './contents.styles';
 
-const Contents = () => (
+const Contents = ({ isTodoForm }) => (
     <ContentsContainer>
         <Header />
         <h2>Notes</h2>
-        <TodoForm />
+        {isTodoForm && <TodoForm />}
         <TodoPreview />
         <Footer />
     </ContentsContainer>

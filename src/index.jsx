@@ -1,52 +1,21 @@
-import { createGlobalStyle } from 'styled-components';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { TaskProvider } from './contexts/task.context';
+import { GlobalStyles } from './index.styles.jsx';
 
-export const colors = {
-    white: '#FFFFFF',
-    shadyLady: '#AEADAE',
-    codGray: '#121212',
-    gossip: '#B9FBC0',
-    koromiko: '#FFBF69',
-    spray: '#8EECF5',
-    iceCold: '#98F5E1',
-    apricotPeach: '#FAC9B8',
-    cherub: '#F1C0E8',
-};
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <React.StrictMode>
+        <TaskProvider>
+            <GlobalStyles />
+            <App />
+        </TaskProvider>
+    </React.StrictMode>
+);
 
-export const GlobalStyles = createGlobalStyle`
-
-:root {
-    --theme-background-primary: #FFFFFF;
-    --theme-primary: #121212;
-    --theme-secondary: #AEADAE;
-  }
-  
-* {
-  box-sizing: border-box;
-}
-
-
-
-html {
-    background: var(--theme-background-primary);
-    color: var(--theme-primary);
-}
-
-/* html.dark {
-    color: var(--theme-primary);
-} */
-
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-`;
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

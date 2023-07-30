@@ -12,7 +12,7 @@ export const SidebarContainer = styled.aside`
     padding: 59px 0;
 
     .filters {
-        margin-top: 97px;
+        margin-top: 60px;
         display: flex;
         flex-direction: column;
         gap: 15px;
@@ -28,7 +28,8 @@ export const Logo = styled.span`
 export const AddNewIcon = styled(AddCircleIcon)`
     width: 50px;
     height: 50px;
-    margin-top: 100px;
+    margin-top: 50px;
+    cursor: pointer;
 `;
 
 export const FilterButton = styled.span`

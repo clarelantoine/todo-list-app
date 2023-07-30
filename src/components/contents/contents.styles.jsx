@@ -7,7 +7,8 @@ export const ContentsContainer = styled.section`
     padding: 59px 105px;
 
     h2 {
-        margin: 100px 0;
+        margin: 0;
+        margin-top: 50px;
         font-weight: 600;
         font-size: 42px;
     }

@@ -7,6 +7,7 @@ export const GreetingsContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
 `;
 
 export const AccountIcon = styled(AccountCircleIcon)`
