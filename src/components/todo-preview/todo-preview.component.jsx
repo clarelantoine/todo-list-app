@@ -5,17 +5,23 @@ import { TodoPreviewContainer } from './todo-preview.styles.jsx';
 
 const TodoPreview = () => {
     // get task from context
-    const { tasks } = useContext(TaskContext);
+    const { tasks, filteredTasks } = useContext(TaskContext);
 
-    return (
-        <TodoPreviewContainer>
-            {tasks.length ? (
-                tasks.map((task, index) => <TodoCard key={index} task={task} />)
-            ) : (
-                <p>You have no task yet...</p>
-            )}
-        </TodoPreviewContainer>
-    );
+    const displayTasks = () => {
+        if (tasks.length) {
+            if (filteredTasks.length) {
+                return filteredTasks.map((task, index) => (
+                    <TodoCard key={index} task={task} />
+                ));
+            }
+            return tasks.map((task, index) => (
+                <TodoCard key={index} task={task} />
+            ));
+        }
+
+        return <p>You have no task yet...</p>;
+    };
+    return <TodoPreviewContainer>{displayTasks()}</TodoPreviewContainer>;
 };
 
 export default TodoPreview;

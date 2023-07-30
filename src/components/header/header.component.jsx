@@ -1,9 +1,10 @@
 import Greetings from '../greetings/greetings.component';
+import SearchForm from '../search-form/search-form.component';
 import { HeaderContainer } from './header.styles';
 
 const Header = () => (
     <HeaderContainer>
-        <div>search</div>
+        <SearchForm />
         <Greetings />
     </HeaderContainer>
 );
