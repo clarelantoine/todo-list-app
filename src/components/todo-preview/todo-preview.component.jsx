@@ -4,9 +4,10 @@ import { TaskContext } from '../../contexts/task.context';
 import { TodoPreviewContainer } from './todo-preview.styles.jsx';
 
 const TodoPreview = () => {
-    // get task from context
+    // get task and filteredTasks from context
     const { tasks, filteredTasks } = useContext(TaskContext);
 
+    // display tasks logic
     const displayTasks = () => {
         if (tasks.length) {
             if (filteredTasks.length) {
@@ -14,9 +15,8 @@ const TodoPreview = () => {
                     <TodoCard key={index} task={task} />
                 ));
             }
-            return tasks.map((task, index) => (
-                <TodoCard key={index} task={task} />
-            ));
+
+            return <p>No notes found...</p>;
         }
 
         return <p>You have no task yet...</p>;

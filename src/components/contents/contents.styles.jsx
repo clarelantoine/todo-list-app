@@ -8,9 +8,11 @@ export const ContentsContainer = styled.section`
 
     h2 {
         margin: 0;
-        margin-top: 50px;
+        margin-top: 60px;
         font-weight: 600;
         font-size: 42px;
+        /* padding-bottom: 20px; */
+        /* border-bottom: 1px solid var(--theme-secondary); */
     }
 `;
 

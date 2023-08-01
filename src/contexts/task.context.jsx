@@ -14,9 +14,9 @@ const getInitialTaskState = () => {
 };
 
 // get filtered tasks (search) handler logic
-const getfilteredTask = (tasks, searchStr) =>
+const getfilteredTask = (tasks, str) =>
     tasks.filter((task) =>
-        task.description.toLowerCase().includes(searchStr.toLowerCase())
+        task.description.toLowerCase().includes(str.toLowerCase())
     );
 /**
  * TO-DO
@@ -26,13 +26,16 @@ const getfilteredTask = (tasks, searchStr) =>
 export const TaskContext = createContext({
     tasks: [],
     filteredTasks: [],
+    searchStr: '',
     addTaskItem: () => {},
     deleteTaskItem: () => {},
+    searchTask: () => {},
 });
 
 export const TaskProvider = ({ children }) => {
     const [tasks, setTasks] = useState(getInitialTaskState);
     const [filteredTasks, setFilteredTasks] = useState([]);
+    const [searchStr, setSearchStr] = useState('');
 
     // add task handler
     const addTaskItem = (taskToAdd) => {
@@ -47,9 +50,8 @@ export const TaskProvider = ({ children }) => {
     };
 
     // search tasks handler (onChange event)
-    const searchTask = (searchStr) => {
-        const newFilteredTasksArray = getfilteredTask(tasks, searchStr);
-        setFilteredTasks(newFilteredTasksArray);
+    const searchTask = (str) => {
+        setSearchStr(str);
     };
 
     // update localStorage when state update
@@ -58,8 +60,9 @@ export const TaskProvider = ({ children }) => {
     }, [tasks]);
 
     useEffect(() => {
-        console.log(filteredTasks);
-    }, [filteredTasks]);
+        const newFilteredTasksArray = getfilteredTask(tasks, searchStr);
+        setFilteredTasks(newFilteredTasksArray);
+    }, [searchStr, tasks]);
 
     const value = {
         tasks,

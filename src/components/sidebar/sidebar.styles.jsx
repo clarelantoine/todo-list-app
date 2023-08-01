@@ -23,12 +23,14 @@ export const Logo = styled.span`
     font-weight: 700;
     font-size: 14px;
     min-height: 30px;
+    display: flex;
+    align-items: center;
 `;
 
 export const AddNewIcon = styled(AddCircleIcon)`
     width: 50px;
     height: 50px;
-    margin-top: 50px;
+    margin-top: 60px;
     cursor: pointer;
 `;
 

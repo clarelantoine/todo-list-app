@@ -9,7 +9,9 @@ import { filterColors } from '../../index.styles';
 
 const Sidebar = ({ setIsTodoForm, isTodoForm }) => (
     <SidebarContainer>
-        <Logo>Mulahazati</Logo>
+        <Logo>
+            <span>Mulahazati</span>
+        </Logo>
         <AddNewIcon onClick={() => setIsTodoForm(!isTodoForm)} />
 
         <div className="filters">
