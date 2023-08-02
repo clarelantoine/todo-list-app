@@ -18,6 +18,15 @@ const getfilteredTask = (tasks, str) =>
     tasks.filter((task) =>
         task.description.toLowerCase().includes(str.toLowerCase())
     );
+
+// set task item to favarite handler logic
+const addTaskToFavoriteHandler = (tasks, favoriteTask) =>
+    tasks.map((task) =>
+        task.id === favoriteTask.id
+            ? { ...task, isFavorite: !task.isFavorite }
+            : task
+    );
+
 /**
  * TO-DO
  * Update task item
@@ -30,6 +39,7 @@ export const TaskContext = createContext({
     addTaskItem: () => {},
     deleteTaskItem: () => {},
     searchTask: () => {},
+    addTaskToFavorite: () => {},
 });
 
 export const TaskProvider = ({ children }) => {
@@ -54,6 +64,11 @@ export const TaskProvider = ({ children }) => {
         setSearchStr(str);
     };
 
+    const addTaskToFavorite = (favoriteTask) => {
+        const newTasksArray = addTaskToFavoriteHandler(tasks, favoriteTask);
+        setTasks(newTasksArray);
+    };
+
     // update localStorage when state update
     useEffect(() => {
         localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -70,6 +85,7 @@ export const TaskProvider = ({ children }) => {
         addTaskItem,
         deleteTaskItem,
         searchTask,
+        addTaskToFavorite,
     };
 
     return (

@@ -43,6 +43,7 @@ const TodoForm = () => {
             categories: 'categories',
             createdDate: new Date(),
             bgColor: randomCardColor,
+            isFavorite: false,
         };
 
         addTaskItem(taskObject);

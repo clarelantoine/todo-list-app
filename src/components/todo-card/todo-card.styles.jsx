@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
-// import EditIcon from '@mui/icons-material/Edit';
-// import StarRateIcon from '@mui/icons-material/StarRate';
+import EditIcon from '@mui/icons-material/Edit';
+import StarRateIcon from '@mui/icons-material/StarRate';
 
 export const TodoCardContainer = styled.div`
     background: ${({ $bgColor }) => $bgColor || '#CCCCCC'};
@@ -36,11 +36,11 @@ export const CardActions = styled.div`
         align-items: center;
         cursor: pointer;
 
-        svg {
+        /* svg {
             width: 15px;
             height: 15px;
             color: var(--theme-background-primary);
-        }
+        } */
     }
 `;
 
@@ -56,14 +56,15 @@ export const CloseButton = styled(CloseIcon)`
     cursor: pointer;
 `;
 
-// export const EditButton = styled(EditIcon)`
-//     width: 15px;
-//     height: 15px;
-//     color: var(--theme-background-primary);
-// `;
+export const EditButton = styled(EditIcon)`
+    width: 15px;
+    height: 15px;
+    color: var(--theme-background-primary);
+`;
 
-// export const FavoriteButton = styled(StarRateIcon)`
-//     width: 15px;
-//     height: 15px;
-//     color: var(--theme-background-primary);
-// `;
+export const FavoriteButton = styled(StarRateIcon)`
+    width: 15px;
+    height: 15px;
+    color: ${({ $isFavorite }) =>
+        $isFavorite ? `yellow` : `var(--theme-background-primary)`};
+`;
