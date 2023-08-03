@@ -7,8 +7,14 @@ import {
 } from './search-box.styles';
 
 const SearchBox = () => {
-    // use handler function searchTask from the task context
-    const { searchTask } = useContext(TaskContext);
+    // use handler function setSearchStr from the task context
+    const { searchStr, setSearchStr } = useContext(TaskContext);
+
+    // onChange handler
+    const onChangeHandler = (event) => {
+        const { value } = event.target;
+        setSearchStr(value);
+    };
 
     return (
         <SearchBoxContainer>
@@ -17,7 +23,8 @@ const SearchBox = () => {
                 type="search"
                 placeholder="Search"
                 name="search"
-                onChange={(event) => searchTask(event.target.value)}
+                onChange={onChangeHandler}
+                value={searchStr}
             />
         </SearchBoxContainer>
     );

@@ -27,6 +27,16 @@ const setFavoriteTaskItemHandler = (tasks, favoriteTask) =>
             : task
     );
 
+const filterTaskCategoryHandler = (tasks, taskCategory) => {
+    const existingTask = tasks.find((task) => task.bgColor === taskCategory);
+
+    if (existingTask) {
+        return tasks.filter((task) => task.bgColor === taskCategory);
+    }
+
+    return tasks;
+};
+
 /**
  * TO-DO
  * Update task item
@@ -35,16 +45,20 @@ const setFavoriteTaskItemHandler = (tasks, favoriteTask) =>
 export const TaskContext = createContext({
     tasks: [],
     filteredTasks: [],
+    activeFilter: '',
+    searchStr: '',
     addTaskItem: () => {},
     deleteTaskItem: () => {},
-    searchTask: () => {},
+    setSearchStr: () => {},
     setFavoriteTaskItem: () => {},
+    setActiveFilter: () => {},
 });
 
 export const TaskProvider = ({ children }) => {
     const [tasks, setTasks] = useState(getInitialTaskState);
     const [filteredTasks, setFilteredTasks] = useState([]);
     const [searchStr, setSearchStr] = useState('');
+    const [activeFilter, setActiveFilter] = useState('');
 
     // add task handler
     const addTaskItem = (taskToAdd) => {
@@ -56,11 +70,6 @@ export const TaskProvider = ({ children }) => {
     const deleteTaskItem = (taskToDelete) => {
         const newTasksArray = deleteTaskItemHandler(tasks, taskToDelete);
         setTasks(newTasksArray);
-    };
-
-    // search tasks handler (onChange event)
-    const searchTask = (str) => {
-        setSearchStr(str);
     };
 
     // set task as favorite
@@ -77,15 +86,26 @@ export const TaskProvider = ({ children }) => {
     useEffect(() => {
         const newFilteredTasksArray = getfilteredTask(tasks, searchStr);
         setFilteredTasks(newFilteredTasksArray);
-    }, [searchStr, tasks]);
+    }, [tasks, searchStr]);
+
+    useEffect(() => {
+        const newFilteredTasksArray = filterTaskCategoryHandler(
+            tasks,
+            activeFilter
+        );
+        setFilteredTasks(newFilteredTasksArray);
+    }, [tasks, activeFilter]);
 
     const value = {
         tasks,
         filteredTasks,
+        activeFilter,
+        searchStr,
         addTaskItem,
         deleteTaskItem,
-        searchTask,
+        setSearchStr,
         setFavoriteTaskItem,
+        setActiveFilter,
     };
 
     return (

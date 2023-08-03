@@ -10,13 +10,6 @@ export const SidebarContainer = styled.aside`
     align-items: center;
     border-right: 1px solid var(--theme-secondary);
     padding: 59px 0;
-
-    .filters {
-        margin-top: 60px;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
 `;
 
 export const Logo = styled.span`
@@ -31,16 +24,5 @@ export const AddNewIcon = styled(AddCircleIcon)`
     width: 50px;
     height: 50px;
     margin-top: 60px;
-    cursor: pointer;
-`;
-
-export const FilterButton = styled.span`
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: ${({ $color }) => $color};
     cursor: pointer;
 `;
