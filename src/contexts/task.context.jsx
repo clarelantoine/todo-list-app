@@ -20,7 +20,7 @@ const getfilteredTask = (tasks, str) =>
     );
 
 // set task item to favarite handler logic
-const addTaskToFavoriteHandler = (tasks, favoriteTask) =>
+const setFavoriteTaskItemHandler = (tasks, favoriteTask) =>
     tasks.map((task) =>
         task.id === favoriteTask.id
             ? { ...task, isFavorite: !task.isFavorite }
@@ -35,11 +35,10 @@ const addTaskToFavoriteHandler = (tasks, favoriteTask) =>
 export const TaskContext = createContext({
     tasks: [],
     filteredTasks: [],
-    searchStr: '',
     addTaskItem: () => {},
     deleteTaskItem: () => {},
     searchTask: () => {},
-    addTaskToFavorite: () => {},
+    setFavoriteTaskItem: () => {},
 });
 
 export const TaskProvider = ({ children }) => {
@@ -64,8 +63,9 @@ export const TaskProvider = ({ children }) => {
         setSearchStr(str);
     };
 
-    const addTaskToFavorite = (favoriteTask) => {
-        const newTasksArray = addTaskToFavoriteHandler(tasks, favoriteTask);
+    // set task as favorite
+    const setFavoriteTaskItem = (favoriteTask) => {
+        const newTasksArray = setFavoriteTaskItemHandler(tasks, favoriteTask);
         setTasks(newTasksArray);
     };
 
@@ -85,7 +85,7 @@ export const TaskProvider = ({ children }) => {
         addTaskItem,
         deleteTaskItem,
         searchTask,
-        addTaskToFavorite,
+        setFavoriteTaskItem,
     };
 
     return (
