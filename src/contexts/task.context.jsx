@@ -13,11 +13,34 @@ const getInitialTaskState = () => {
     return tasks ? JSON.parse(tasks) : [];
 };
 
-// get filtered tasks (search) handler logic
-const getfilteredTask = (tasks, str) =>
-    tasks.filter((task) =>
-        task.description.toLowerCase().includes(str.toLowerCase())
+// check if last last of active category filter
+const isLastActiveTaskHandler = (tasks, taskToDelete) => {
+    // check if last of the active category filter
+    const taskToDeleteCount = tasks.filter(
+        (task) => task.categoryId === taskToDelete.categoryId
     );
+
+    return taskToDeleteCount.length === 1;
+};
+
+// get filtered tasks (search) handler logic
+const getfilteredTask = (tasks, filter) => {
+    const { activeCategoryId, searchStr } = filter;
+
+    let result = tasks;
+
+    if (activeCategoryId) {
+        result = tasks.filter((task) => task.categoryId === activeCategoryId);
+    }
+
+    if (searchStr) {
+        result = tasks.filter((task) =>
+            task.description.toLowerCase().includes(searchStr.toLowerCase())
+        );
+    }
+
+    return result;
+};
 
 // set task item to favarite handler logic
 const setFavoriteTaskItemHandler = (tasks, favoriteTask) =>
@@ -27,38 +50,40 @@ const setFavoriteTaskItemHandler = (tasks, favoriteTask) =>
             : task
     );
 
-const filterTaskCategoryHandler = (tasks, taskCategory) => {
-    const existingTask = tasks.find((task) => task.bgColor === taskCategory);
-
-    if (existingTask) {
-        return tasks.filter((task) => task.bgColor === taskCategory);
-    }
-
-    return tasks;
-};
+const getCategories = (tasks) => [
+    ...new Set(
+        tasks.map((task) =>
+            tasks.find((obj) => obj.categoryId === task.categoryId)
+        )
+    ),
+];
 
 /**
  * TO-DO
  * Update task item
  */
 
+const initialFilterState = {
+    activeCategoryId: '',
+    searchStr: '',
+};
+
 export const TaskContext = createContext({
     tasks: [],
+    categories: [],
     filteredTasks: [],
-    activeFilter: '',
-    searchStr: '',
+    filter: {},
+    setFilter: () => {},
     addTaskItem: () => {},
     deleteTaskItem: () => {},
-    setSearchStr: () => {},
     setFavoriteTaskItem: () => {},
-    setActiveFilter: () => {},
 });
 
 export const TaskProvider = ({ children }) => {
     const [tasks, setTasks] = useState(getInitialTaskState);
+    const [categories, setCategories] = useState([]);
+    const [filter, setFilter] = useState(initialFilterState);
     const [filteredTasks, setFilteredTasks] = useState([]);
-    const [searchStr, setSearchStr] = useState('');
-    const [activeFilter, setActiveFilter] = useState('');
 
     // add task handler
     const addTaskItem = (taskToAdd) => {
@@ -68,7 +93,14 @@ export const TaskProvider = ({ children }) => {
 
     // delete task handler
     const deleteTaskItem = (taskToDelete) => {
+        // if last rest activeCategoryId
+        const isLastActiveTask = isLastActiveTaskHandler(tasks, taskToDelete);
         const newTasksArray = deleteTaskItemHandler(tasks, taskToDelete);
+
+        if (isLastActiveTask) {
+            setFilter({ ...filter, activeCategoryId: '' });
+        }
+
         setTasks(newTasksArray);
     };
 
@@ -78,34 +110,29 @@ export const TaskProvider = ({ children }) => {
         setTasks(newTasksArray);
     };
 
-    // update localStorage when state update
     useEffect(() => {
+        // update localStorage when state update
         localStorage.setItem('tasks', JSON.stringify(tasks));
+
+        // get / set categories from tasks
+        const newCategoriesArray = getCategories(tasks);
+        setCategories(newCategoriesArray);
     }, [tasks]);
 
     useEffect(() => {
-        const newFilteredTasksArray = getfilteredTask(tasks, searchStr);
+        const newFilteredTasksArray = getfilteredTask(tasks, filter);
         setFilteredTasks(newFilteredTasksArray);
-    }, [tasks, searchStr]);
-
-    useEffect(() => {
-        const newFilteredTasksArray = filterTaskCategoryHandler(
-            tasks,
-            activeFilter
-        );
-        setFilteredTasks(newFilteredTasksArray);
-    }, [tasks, activeFilter]);
+    }, [filter, tasks]);
 
     const value = {
         tasks,
         filteredTasks,
-        activeFilter,
-        searchStr,
+        filter,
+        categories,
+        setFilter,
         addTaskItem,
         deleteTaskItem,
-        setSearchStr,
         setFavoriteTaskItem,
-        setActiveFilter,
     };
 
     return (

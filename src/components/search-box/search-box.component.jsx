@@ -8,12 +8,13 @@ import {
 
 const SearchBox = () => {
     // use handler function setSearchStr from the task context
-    const { searchStr, setSearchStr } = useContext(TaskContext);
+    const { filter, setFilter } = useContext(TaskContext);
+    const { searchStr } = filter;
 
     // onChange handler
     const onChangeHandler = (event) => {
         const { value } = event.target;
-        setSearchStr(value);
+        setFilter({ ...filter, searchStr: value });
     };
 
     return (

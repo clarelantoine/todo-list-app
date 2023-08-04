@@ -2,20 +2,23 @@ import { useContext } from 'react';
 import { FilterButton } from './filter-item.styles';
 import { TaskContext } from '../../contexts/task.context';
 
-const FilterItem = ({ catergory }) => {
+const FilterItem = ({ category }) => {
     // eslint-disable-next-line
-    const { title, color } = catergory;
+    const { categoryId: id, title, bgColor: color } = category;
 
-    const { activeFilter, setActiveFilter } = useContext(TaskContext);
+    const { filter, setFilter } = useContext(TaskContext);
+    const { activeCategoryId } = filter;
 
     const onClickHandler = () => {
-        activeFilter !== color ? setActiveFilter(color) : setActiveFilter('');
+        activeCategoryId !== id
+            ? setFilter({ ...filter, activeCategoryId: id })
+            : setFilter({ ...filter, activeCategoryId: '' });
     };
 
     return (
         <FilterButton
             $color={color}
-            $isActive={activeFilter === color}
+            $isActive={activeCategoryId === id}
             onClick={onClickHandler}
         />
     );

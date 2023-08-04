@@ -24,7 +24,7 @@ export const FilterButton = styled.span`
         width: 45px;
         height: 45px;
         border-radius: 50%;
-        border:  1px solid ${$color};
+        border:  2px solid ${$color};
     
     `}
     }
