@@ -1,5 +1,4 @@
-import { useContext, useEffect } from 'react';
-import { useAnimate, useInView, usePresence } from 'framer-motion';
+import { useContext } from 'react';
 import TodoCard from '../todo-card/todo-card.component';
 import { TaskContext } from '../../contexts/task.context';
 import { TodoPreviewContainer } from './todo-preview.styles.jsx';
@@ -12,8 +11,8 @@ const TodoPreview = () => {
     const displayTasks = () => {
         if (tasks.length) {
             if (filteredTasks.length) {
-                return filteredTasks.map((task, index) => (
-                    <TodoCard key={index} index={index} task={task} />
+                return filteredTasks.map((task) => (
+                    <TodoCard key={task.id} task={task} />
                 ));
             }
 
