@@ -1,17 +1,23 @@
+import { useContext } from 'react';
 import { AddNewIcon, Logo, SidebarContainer } from './sidebar.styles';
 
 import Filter from '../filter/filter.component';
+import { TaskContext } from '../../contexts/task.context';
 
-const Sidebar = ({ setIsTodoForm, isTodoForm }) => (
-    <SidebarContainer>
-        <Logo>
-            <span>Mulahazati</span>
-        </Logo>
+const Sidebar = () => {
+    const { setIsTodoForm, isTodoForm } = useContext(TaskContext);
 
-        <AddNewIcon onClick={() => setIsTodoForm(!isTodoForm)} />
+    return (
+        <SidebarContainer>
+            <Logo>
+                <span>Mulahazati</span>
+            </Logo>
 
-        <Filter />
-    </SidebarContainer>
-);
+            <AddNewIcon onClick={() => setIsTodoForm(!isTodoForm)} />
+
+            <Filter />
+        </SidebarContainer>
+    );
+};
 
 export default Sidebar;

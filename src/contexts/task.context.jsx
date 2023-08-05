@@ -73,10 +73,12 @@ export const TaskContext = createContext({
     categories: [],
     filteredTasks: [],
     filter: {},
+    isTodoForm: null,
     setFilter: () => {},
     addTaskItem: () => {},
     deleteTaskItem: () => {},
     setFavoriteTaskItem: () => {},
+    setIsTodoForm: () => {},
 });
 
 export const TaskProvider = ({ children }) => {
@@ -84,6 +86,8 @@ export const TaskProvider = ({ children }) => {
     const [categories, setCategories] = useState([]);
     const [filter, setFilter] = useState(initialFilterState);
     const [filteredTasks, setFilteredTasks] = useState([]);
+
+    const [isTodoForm, setIsTodoForm] = useState(false);
 
     // add task handler
     const addTaskItem = (taskToAdd) => {
@@ -129,10 +133,12 @@ export const TaskProvider = ({ children }) => {
         filteredTasks,
         filter,
         categories,
+        isTodoForm,
         setFilter,
         addTaskItem,
         deleteTaskItem,
         setFavoriteTaskItem,
+        setIsTodoForm,
     };
 
     return (

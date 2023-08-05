@@ -4,14 +4,11 @@ import Sidebar from './components/sidebar/sidebar.component';
 
 import { AppContainer } from './App.styles.jsx';
 
-const App = () => {
-    const [isTodoForm, setIsTodoForm] = useState(false);
-    return (
-        <AppContainer>
-            <Sidebar setIsTodoForm={setIsTodoForm} isTodoForm={isTodoForm} />
-            <Contents isTodoForm={isTodoForm} />
-        </AppContainer>
-    );
-};
+const App = () => (
+    <AppContainer>
+        <Sidebar />
+        <Contents />
+    </AppContainer>
+);
 
 export default App;
