@@ -19,7 +19,7 @@ const SearchBox = () => {
 
     return (
         <SearchBoxContainer>
-            <SearchBoxIcon />
+            {/* <SearchBoxIcon /> */}
             <SearchInputField
                 type="search"
                 placeholder="Search"
