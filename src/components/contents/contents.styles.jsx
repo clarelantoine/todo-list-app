@@ -6,7 +6,7 @@ export const ContentsContainer = styled.section`
     width: 100%;
     padding: 59px 105px;
 
-    h2 {
+    .page-title {
         margin: 0;
         margin-top: 60px;
         font-weight: 600;

@@ -15,6 +15,7 @@ import {
     EditButton,
     TodoCardContainer,
 } from './todo-card.styles.jsx';
+import { cardVariants } from './todo-card.animations';
 
 const TodoCard = ({ task }) => {
     // eslint-disable-next-line
@@ -27,15 +28,15 @@ const TodoCard = ({ task }) => {
     const deleteButtonHandler = () => deleteTaskItem(task);
 
     return (
-        <AnimatePresence mode="sync">
+        <AnimatePresence mode="wait">
             <TodoCardContainer
                 layout
                 $bgColor={bgColor}
                 as={motion.div}
-                initial={{ scale: 0.5, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.5, opacity: 0 }}
-                // transition={{ duration: 0.2 }}
+                variants={cardVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
             >
                 <p>{description}</p>
                 {createdDate && (
@@ -54,8 +55,11 @@ const TodoCard = ({ task }) => {
                     </EditButton>
                 </CardActions>
 
-                <span className="closeButtonContainer">
-                    <CloseButton onClick={deleteButtonHandler} />
+                <span
+                    className="closeButtonContainer"
+                    onClick={deleteButtonHandler}
+                >
+                    <CloseButton />
                 </span>
             </TodoCardContainer>
         </AnimatePresence>

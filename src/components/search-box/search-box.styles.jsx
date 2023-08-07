@@ -3,7 +3,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import FormInput from '../form-input/form-input.component';
 import SeachImage from '../../assets/icons/search-icon.svg';
 
-console.log(SeachImage);
 export const SearchBoxContainer = styled.div`
     display: flex;
     align-items: center;

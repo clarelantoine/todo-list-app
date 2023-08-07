@@ -6,19 +6,18 @@ import TodoPreview from '../todo-preview/todo-preview.component';
 
 import { ContentsContainer } from './contents.styles';
 import { TaskContext } from '../../contexts/task.context';
+import Modal from '../modal/modal.component';
 
-const Contents = () => {
-    const { isTodoForm } = useContext(TaskContext);
+const Contents = () => (
+    // const { isTodoForm } = useContext(TaskContext);
+    // const { isTodoForm, setIsTodoForm } = useContext(TaskContext);
 
-    return (
-        <ContentsContainer>
-            <Header />
-            <h2>Notes</h2>
-            {isTodoForm && <TodoForm />}
-            <TodoPreview />
-            <Footer />
-        </ContentsContainer>
-    );
-};
-
+    <ContentsContainer>
+        <Header />
+        <h2 className="page-title">Notes</h2>
+        <TodoPreview />
+        <Footer />
+        <Modal />
+    </ContentsContainer>
+);
 export default Contents;

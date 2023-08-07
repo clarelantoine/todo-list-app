@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { motion } from 'framer-motion';
 import { FilterButton } from './filter-item.styles';
 import { TaskContext } from '../../contexts/task.context';
 
@@ -17,6 +18,7 @@ const FilterItem = ({ category }) => {
 
     return (
         <FilterButton
+            as={motion.span}
             $color={color}
             $isActive={activeCategoryId === id}
             onClick={onClickHandler}
