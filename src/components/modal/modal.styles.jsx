@@ -26,13 +26,18 @@ export const ModalContainer = styled.div`
     position: relative;
     max-width: 500px;
     width: 100%;
-    background: #ffffff;
+    background: ${({ $color }) => $color || '#ffffff'};
     padding: 30px 25px;
     border-radius: 15px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
     .modal-title {
         margin: 0 0 20px;
+    }
+
+    textarea {
+        background: ${({ $color }) => $color || '#ffffff'};
+        border: 1px solid var(--theme-primary);
     }
 `;
 

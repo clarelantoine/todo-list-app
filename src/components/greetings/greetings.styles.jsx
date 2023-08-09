@@ -8,6 +8,7 @@ export const GreetingsContainer = styled.div`
     align-items: center;
     gap: 10px;
     cursor: pointer;
+    user-select: none;
 `;
 
 export const AccountIcon = styled(AccountCircleIcon)`

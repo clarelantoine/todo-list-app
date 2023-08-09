@@ -11,17 +11,18 @@ import {
 
 const { categories } = APP_DATA;
 
-const initialFormValues = {
-    id: crypto.randomUUID(),
-    title: '',
-    description: '',
-    categoryId: '',
-    createdDate: new Date(),
-    bgColor: '',
-    isFavorite: false,
-};
-
 const TodoForm = () => {
+    // initiak task value
+    const initialFormValues = {
+        id: crypto.randomUUID(),
+        title: '',
+        description: '',
+        categoryId: '',
+        createdDate: new Date(),
+        bgColor: '',
+        isFavorite: false,
+    };
+
     // get add task function from context
     const {
         addTaskItem,

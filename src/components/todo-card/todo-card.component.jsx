@@ -5,7 +5,7 @@ import StarRateIcon from '@mui/icons-material/StarRate';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { TaskContext } from '../../contexts/task.context';
-import { formattedDate } from '../../utils/date';
+import { formattedDate } from '../../utils/date.utils';
 
 import {
     CardActions,

@@ -4,14 +4,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { TaskProvider } from './contexts/task.context';
 import { GlobalStyles } from './index.styles.jsx';
+import { UserProvider } from './contexts/user.context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <TaskProvider>
-            <GlobalStyles />
-            <App />
-        </TaskProvider>
+        <UserProvider>
+            <TaskProvider>
+                <GlobalStyles />
+                <App />
+            </TaskProvider>
+        </UserProvider>
     </React.StrictMode>
 );
 

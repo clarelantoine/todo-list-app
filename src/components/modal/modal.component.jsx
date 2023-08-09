@@ -25,7 +25,11 @@ const Modal = () => {
                     animate="visible"
                     exit="hidden"
                 >
-                    <ModalContainer as={motion.div} variants={modalVariants}>
+                    <ModalContainer
+                        as={motion.div}
+                        variants={modalVariants}
+                        // $color={updateTask.bgColor}
+                    >
                         <ModalTitle>
                             {updateTask ? 'Update your note' : 'Add a note'}
                         </ModalTitle>
