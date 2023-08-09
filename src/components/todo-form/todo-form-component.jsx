@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import FormInput from '../form-input/form-input.component';
 import { TaskContext } from '../../contexts/task.context';
 
 import { APP_DATA } from '../../app-data';
@@ -10,31 +9,35 @@ import {
     CategoryFieldOption,
 } from './todo-form.styles';
 
-/**
- * can refactor this category object
- */
-const initialFormValue = {
+const { categories } = APP_DATA;
+
+const initialFormValues = {
+    id: crypto.randomUUID(),
+    title: '',
     description: '',
-    category: '',
+    categoryId: '',
+    createdDate: new Date(),
+    bgColor: '',
+    isFavorite: false,
 };
 
-const TodoForm = ({ isTodoForm, setIsTodoForm }) => {
-    const { categories } = APP_DATA;
-    // states for form fields
-    const [task, setTask] = useState(initialFormValue);
-    const [isDisabled, setIsDisabled] = useState(true);
-
+const TodoForm = () => {
     // get add task function from context
-    const { addTaskItem } = useContext(TaskContext);
+    const {
+        addTaskItem,
+        updateTask,
+        setShowModal,
+        setUpdateTask,
+        updateTaskItem,
+    } = useContext(TaskContext);
 
-    // get selected category object
-    const selelectedCategory = categories.find(
-        (category) => category.id === task.category
-    );
+    // states for form fields
+    const [task, setTask] = useState(updateTask || initialFormValues);
+    const [isDisabled, setIsDisabled] = useState(true);
 
     // handle isDisabled state
     useEffect(() => {
-        task.description.trim().length > 3 && task.category
+        task.description.trim().length > 3 && task.categoryId
             ? setIsDisabled(false)
             : setIsDisabled(true);
     }, [task]);
@@ -46,45 +49,31 @@ const TodoForm = ({ isTodoForm, setIsTodoForm }) => {
     };
 
     // onClick category field event handler
-    const onClickCategoryFieldHandler = (categoryID) => {
-        setTask({ ...task, category: categoryID });
+    const onClickCategoryFieldHandler = (category) => {
+        const { id, title, color } = category;
+        setTask({ ...task, categoryId: id, title, bgColor: color });
     };
 
     // reset form handler
-    const resetFormHandler = () => setTask(initialFormValue);
+    const resetFormHandler = () => {
+        setTask(initialFormValues);
+        setUpdateTask('');
+        setShowModal(false);
+    };
 
     // on form submit event handler
-    const addTaskItemHandler = () => {
+    const formActionHandler = () => {
         // create task object
 
         // form validation (check is task value if empty)
         // if (!task.trim().length) return alert('Invalid Task');
 
-        // create the task object to add
-        const taskObject = {
-            id: crypto.randomUUID(),
-            title: selelectedCategory.title,
-            description: task.description,
-            categoryId: task.category,
-            createdDate: new Date(),
-            bgColor: selelectedCategory.color,
-            isFavorite: false,
-        };
-
-        addTaskItem(taskObject);
+        updateTask ? updateTaskItem(task, updateTask) : addTaskItem(task);
         resetFormHandler();
-        setIsTodoForm(!isTodoForm);
     };
 
     return (
         <AddNoteFormContainer>
-            {/* <FormInput
-                name="description"
-                type="text"
-                placeholder="Add a task"
-                onChange={onChangeHandler}
-                value={task}
-            /> */}
             <textarea
                 name="description"
                 type="text"
@@ -100,9 +89,9 @@ const TodoForm = ({ isTodoForm, setIsTodoForm }) => {
                         <CategoryFieldOption
                             key={category.id}
                             $color={category.color}
-                            $isActive={category.id === task.category}
+                            $isActive={category.id === task.categoryId}
                             onClick={() =>
-                                onClickCategoryFieldHandler(category.id)
+                                onClickCategoryFieldHandler(category)
                             }
                         />
                     ))}
@@ -111,10 +100,10 @@ const TodoForm = ({ isTodoForm, setIsTodoForm }) => {
             <button
                 className="add-button"
                 type="button"
-                onClick={addTaskItemHandler}
+                onClick={formActionHandler}
                 disabled={isDisabled}
             >
-                Add
+                {updateTask ? 'Update' : 'Add'}
             </button>
         </AddNoteFormContainer>
     );

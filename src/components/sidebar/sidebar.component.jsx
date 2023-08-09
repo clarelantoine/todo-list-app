@@ -5,7 +5,7 @@ import Filter from '../filter/filter.component';
 import { TaskContext } from '../../contexts/task.context';
 
 const Sidebar = () => {
-    const { setIsTodoForm, isTodoForm } = useContext(TaskContext);
+    const { showModal, setShowModal } = useContext(TaskContext);
 
     return (
         <SidebarContainer>
@@ -13,7 +13,7 @@ const Sidebar = () => {
                 <span>Mulahazati</span>
             </Logo>
 
-            <AddNewIcon onClick={() => setIsTodoForm(!isTodoForm)} />
+            <AddNewIcon onClick={() => setShowModal(!showModal)} />
 
             <Filter />
         </SidebarContainer>

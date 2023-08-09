@@ -21,11 +21,8 @@ const TodoCard = ({ task }) => {
     // eslint-disable-next-line
     const { description, isFavorite, createdDate, bgColor } = task;
 
-    const { deleteTaskItem, setFavoriteTaskItem } = useContext(TaskContext);
-
-    // actions button handlers
-    const favoriteButtonHandler = () => setFavoriteTaskItem(task);
-    const deleteButtonHandler = () => deleteTaskItem(task);
+    const { setUpdateTask, deleteTaskItem, setFavoriteTaskItem } =
+        useContext(TaskContext);
 
     return (
         <AnimatePresence mode="wait">
@@ -44,20 +41,24 @@ const TodoCard = ({ task }) => {
                 )}
                 <CardActions>
                     <FavoriteButton
-                        onClick={favoriteButtonHandler}
+                        onClick={() => setFavoriteTaskItem(task)}
                         $isFavorite={isFavorite}
                     >
                         <StarRateIcon />
                     </FavoriteButton>
 
-                    <EditButton>
+                    <EditButton
+                        onClick={() => {
+                            setUpdateTask(task);
+                        }}
+                    >
                         <EditIcon />
                     </EditButton>
                 </CardActions>
 
                 <span
                     className="closeButtonContainer"
-                    onClick={deleteButtonHandler}
+                    onClick={() => deleteTaskItem(task)}
                 >
                     <CloseButton />
                 </span>

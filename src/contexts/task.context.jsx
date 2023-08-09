@@ -7,6 +7,11 @@ const addTaskItemHandler = (tasks, taskToAdd) => [taskToAdd, ...tasks];
 const deleteTaskItemHandler = (tasks, taskToDelete) =>
     tasks.filter((task) => task.id !== taskToDelete.id);
 
+const updateTaskItemHandler = (tasks, taskItemToUpdate) =>
+    tasks.map((task) =>
+        task.id === taskItemToUpdate.id ? taskItemToUpdate : task
+    );
+
 // get values from localStorage else return []
 const getInitialTaskState = () => {
     const tasks = localStorage.getItem('tasks');
@@ -73,12 +78,15 @@ export const TaskContext = createContext({
     categories: [],
     filteredTasks: [],
     filter: {},
-    isTodoForm: null,
+    showModal: null,
+    updateTask: '',
     setFilter: () => {},
     addTaskItem: () => {},
     deleteTaskItem: () => {},
+    setUpdateTask: () => {},
     setFavoriteTaskItem: () => {},
-    setIsTodoForm: () => {},
+    setShowModal: () => {},
+    updateTaskItem: () => {},
 });
 
 export const TaskProvider = ({ children }) => {
@@ -86,8 +94,8 @@ export const TaskProvider = ({ children }) => {
     const [categories, setCategories] = useState([]);
     const [filter, setFilter] = useState(initialFilterState);
     const [filteredTasks, setFilteredTasks] = useState([]);
-
-    const [isTodoForm, setIsTodoForm] = useState(false);
+    const [updateTask, setUpdateTask] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
     // add task handler
     const addTaskItem = (taskToAdd) => {
@@ -100,6 +108,21 @@ export const TaskProvider = ({ children }) => {
         // if last rest activeCategoryId
         const isLastActiveTask = isLastActiveTaskHandler(tasks, taskToDelete);
         const newTasksArray = deleteTaskItemHandler(tasks, taskToDelete);
+
+        if (isLastActiveTask) {
+            setFilter({ ...filter, activeCategoryId: '' });
+        }
+
+        setTasks(newTasksArray);
+    };
+
+    // update task handler
+    const updateTaskItem = (taskItemToUpdate, initialTaskItemToUpdate) => {
+        const isLastActiveTask = isLastActiveTaskHandler(
+            tasks,
+            initialTaskItemToUpdate
+        );
+        const newTasksArray = updateTaskItemHandler(tasks, taskItemToUpdate);
 
         if (isLastActiveTask) {
             setFilter({ ...filter, activeCategoryId: '' });
@@ -133,12 +156,15 @@ export const TaskProvider = ({ children }) => {
         filteredTasks,
         filter,
         categories,
-        isTodoForm,
+        showModal,
+        updateTask,
         setFilter,
         addTaskItem,
         deleteTaskItem,
         setFavoriteTaskItem,
-        setIsTodoForm,
+        setShowModal,
+        setUpdateTask,
+        updateTaskItem,
     };
 
     return (

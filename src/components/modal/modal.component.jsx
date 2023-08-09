@@ -12,11 +12,12 @@ import {
 } from './modal.styles';
 
 const Modal = () => {
-    const { isTodoForm, setIsTodoForm } = useContext(TaskContext);
+    const { updateTask, showModal, setShowModal, setUpdateTask } =
+        useContext(TaskContext);
 
     return (
         <AnimatePresence mode="wait">
-            {isTodoForm && (
+            {(showModal || updateTask) && (
                 <Backdrop
                     as={motion.div}
                     variants={backdropVariants}
@@ -25,21 +26,19 @@ const Modal = () => {
                     exit="hidden"
                 >
                     <ModalContainer as={motion.div} variants={modalVariants}>
-                        <ModalTitle>Add a note</ModalTitle>
-                        <TodoForm
-                            isTodoForm={isTodoForm}
-                            setIsTodoForm={setIsTodoForm}
-                        />
+                        <ModalTitle>
+                            {updateTask ? 'Update your note' : 'Add a note'}
+                        </ModalTitle>
+                        <TodoForm />
                         <ModalCloseButton
-                            onClick={() => setIsTodoForm(!isTodoForm)}
+                            onClick={() =>
+                                updateTask
+                                    ? setUpdateTask('')
+                                    : setShowModal(!showModal)
+                            }
                         >
                             <CloseButton />
                         </ModalCloseButton>
-                        {/* <ModalCloseButton
-                            onClick={() => setIsTodoForm(!isTodoForm)}
-                        >
-                            Close
-                        </ModalCloseButton> */}
                     </ModalContainer>
                 </Backdrop>
             )}
