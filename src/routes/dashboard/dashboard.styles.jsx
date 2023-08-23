@@ -1,6 +1,15 @@
 import styled from 'styled-components';
 
-export const ContentsContainer = styled.section`
+export const DashboardContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1440px;
+    margin: auto;
+    min-height: 100vh;
+`;
+
+export const ContentContainer = styled.section`
     display: flex;
     flex-direction: column;
     width: 100%;

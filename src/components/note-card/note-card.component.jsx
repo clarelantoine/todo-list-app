@@ -13,11 +13,11 @@ import {
     CloseButton,
     FavoriteButton,
     EditButton,
-    TodoCardContainer,
-} from './todo-card.styles.jsx';
-import { cardVariants } from './todo-card.animations';
+    NoteCardContainer,
+} from './note-card.styles.jsx';
+import { cardVariants } from './note-card.animations';
 
-const TodoCard = ({ task }) => {
+const NoteCard = ({ task }) => {
     // eslint-disable-next-line
     const { description, isFavorite, createdDate, bgColor } = task;
 
@@ -26,7 +26,7 @@ const TodoCard = ({ task }) => {
 
     return (
         <AnimatePresence mode="wait">
-            <TodoCardContainer
+            <NoteCardContainer
                 layout
                 $bgColor={bgColor}
                 as={motion.div}
@@ -62,9 +62,9 @@ const TodoCard = ({ task }) => {
                 >
                     <CloseButton />
                 </span>
-            </TodoCardContainer>
+            </NoteCardContainer>
         </AnimatePresence>
     );
 };
 
-export default TodoCard;
+export default NoteCard;

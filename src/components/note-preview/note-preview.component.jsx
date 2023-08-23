@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import TodoCard from '../todo-card/todo-card.component';
+import NoteCard from '../note-card/note-card.component';
 import { TaskContext } from '../../contexts/task.context';
-import { TodoPreviewContainer } from './todo-preview.styles.jsx';
+import { NotePreviewContainer } from './note-preview.styles.jsx';
 
-const TodoPreview = () => {
+const NotePreview = () => {
     // get task and filteredTasks from context
     const { tasks, filteredTasks } = useContext(TaskContext);
 
@@ -12,7 +12,7 @@ const TodoPreview = () => {
         if (tasks.length) {
             if (filteredTasks.length) {
                 return filteredTasks.map((task) => (
-                    <TodoCard key={task.id} task={task} />
+                    <NoteCard key={task.id} task={task} />
                 ));
             }
 
@@ -21,7 +21,7 @@ const TodoPreview = () => {
 
         return <p>You have no task yet...</p>;
     };
-    return <TodoPreviewContainer>{displayTasks()}</TodoPreviewContainer>;
+    return <NotePreviewContainer>{displayTasks()}</NotePreviewContainer>;
 };
 
-export default TodoPreview;
+export default NotePreview;

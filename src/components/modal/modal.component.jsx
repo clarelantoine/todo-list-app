@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { TaskContext } from '../../contexts/task.context';
-import TodoForm from '../todo-form/todo-form-component';
+import NoteForm from '../note-form/note-form-component';
 import { backdropVariants, modalVariants } from './modal.animations';
 import {
     Backdrop,
@@ -33,7 +33,7 @@ const Modal = () => {
                         <ModalTitle>
                             {updateTask ? 'Update your note' : 'Add a note'}
                         </ModalTitle>
-                        <TodoForm />
+                        <NoteForm />
                         <ModalCloseButton
                             onClick={() =>
                                 updateTask

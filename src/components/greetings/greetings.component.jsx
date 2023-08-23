@@ -10,10 +10,6 @@ const Greetings = () => {
     const { isUserDropownOpen, setIsuserDropDownOpen } =
         useContext(UserContext);
 
-    useEffect(() => {
-        console.log(isUserDropownOpen);
-    }, [isUserDropownOpen]);
-
     return (
         <GreetingsContainer
             onClick={() => setIsuserDropDownOpen(!isUserDropownOpen)}

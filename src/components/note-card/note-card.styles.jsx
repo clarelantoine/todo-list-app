@@ -43,7 +43,7 @@ export const CloseButton = styled(CloseIcon)`
 `;
 
 // card container
-export const TodoCardContainer = styled.div`
+export const NoteCardContainer = styled.div`
     background: ${({ $bgColor }) => $bgColor};
     height: 250px;
     border-radius: 15px;

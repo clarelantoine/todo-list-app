@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { TaskProvider } from './contexts/task.context';
 import { GlobalStyles } from './index.styles.jsx';
 import { UserProvider } from './contexts/user.context';
+
+import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <UserProvider>
             <TaskProvider>
-                <GlobalStyles />
-                <App />
+                <BrowserRouter>
+                    <GlobalStyles />
+                    <App />
+                </BrowserRouter>
             </TaskProvider>
         </UserProvider>
     </React.StrictMode>

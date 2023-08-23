@@ -7,11 +7,11 @@ import {
     CategoryField,
     CategoryFieldGroup,
     CategoryFieldOption,
-} from './todo-form.styles';
+} from './note-form.styles';
 
 const { categories } = APP_DATA;
 
-const TodoForm = () => {
+const NoteForm = () => {
     // initiak task value
     const initialFormValues = {
         id: crypto.randomUUID(),
@@ -110,4 +110,4 @@ const TodoForm = () => {
     );
 };
 
-export default TodoForm;
+export default NoteForm;
