@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 import { UserDropDownContainer } from './user-dropdown.styles';
 import { UserContext } from '../../contexts/user.context';
 
@@ -27,8 +28,8 @@ const UserDropdown = () => {
                     animate="visible"
                     exit="exit"
                 >
-                    <span>Account setting</span>
-                    <span>Logout</span>
+                    <NavLink to="">Account setting</NavLink>
+                    <NavLink to="/">Logout</NavLink>
                 </UserDropDownContainer>
             )}
         </AnimatePresence>

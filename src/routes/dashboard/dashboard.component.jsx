@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Footer from '../../components/footer/footer.component';
-import Header from '../../components/header/header.component';
+import Header from '../../components/dashboard-header/dashboard-header.component';
 import Sidebar from '../../components/sidebar/sidebar.component';
 import Modal from '../../components/modal/modal.component';
 

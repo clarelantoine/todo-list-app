@@ -13,7 +13,7 @@ export const UserDropDownContainer = styled.div`
     color: var(--theme-primary);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
-    span {
+    a {
         padding: 10px 0;
         cursor: pointer;
         /* font-size: ; */

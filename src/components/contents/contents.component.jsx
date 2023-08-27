@@ -1,5 +1,5 @@
 import Footer from '../footer/footer.component';
-import Header from '../header/header.component';
+import DashboardHeader from '../dashboard-header/dashboard-header.component';
 import NotePreview from '../note-preview/note-preview.component';
 
 import { ContentsContainer } from './contents.styles';
@@ -7,7 +7,7 @@ import Modal from '../modal/modal.component';
 
 const Contents = () => (
     <ContentsContainer>
-        <Header />
+        <DashboardHeader />
         <h2 className="page-title">Notes</h2>
         <NotePreview />
         <Footer />
