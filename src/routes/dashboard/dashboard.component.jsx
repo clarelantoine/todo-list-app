@@ -1,27 +1,16 @@
-import { Outlet, useLocation } from 'react-router-dom';
-import Footer from '../../components/footer/footer.component';
-import Header from '../../components/dashboard-header/dashboard-header.component';
-import Sidebar from '../../components/sidebar/sidebar.component';
-import Modal from '../../components/modal/modal.component';
+import { Route, Routes } from 'react-router-dom';
+import DashboardLayout from '../../layouts/dashboard-layout/dashboard-layout.component';
+import NotePreview from '../../components/note-preview/note-preview.component';
+import Welcome from '../welcome/welcome.component';
+import Settings from '../settings/settings.component';
 
-import { ContentContainer, DashboardContainer } from './dashboard.styles';
-
-const Dashboard = () => {
-    const { pathname } = useLocation();
-    console.log(pathname);
-    const pageTitle = pathname === '/dashboard/' ? 'Welcome' : 'Notes';
-
-    return (
-        <DashboardContainer>
-            <Sidebar />
-            <ContentContainer>
-                <Header />
-                <h2 className="page-title">{pageTitle}</h2>
-                <Outlet />
-                <Footer />
-            </ContentContainer>
-            <Modal />
-        </DashboardContainer>
-    );
-};
+const Dashboard = () => (
+    <Routes>
+        <Route path="/*" element={<DashboardLayout />}>
+            <Route index element={<Welcome />} />
+            <Route path="notes" element={<NotePreview />} />
+            <Route path="settings" element={<Settings />} />
+        </Route>
+    </Routes>
+);
 export default Dashboard;

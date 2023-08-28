@@ -28,7 +28,7 @@ const UserDropdown = () => {
                     animate="visible"
                     exit="exit"
                 >
-                    <NavLink to="">Account setting</NavLink>
+                    <NavLink to="settings">Account setting</NavLink>
                     <NavLink to="/">Logout</NavLink>
                 </UserDropDownContainer>
             )}

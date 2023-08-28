@@ -11,6 +11,7 @@ export const ContentsContainer = styled.section`
         margin-top: 60px;
         font-weight: 600;
         font-size: 42px;
+        text-transform: capitalize;
         /* padding-bottom: 20px; */
         /* border-bottom: 1px solid var(--theme-secondary); */
     }

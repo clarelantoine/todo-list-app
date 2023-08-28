@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-
 export const SidebarContainer = styled.aside`
     max-width: 121px;
     width: 100%;
@@ -18,11 +16,4 @@ export const Logo = styled.span`
     min-height: 30px;
     display: flex;
     align-items: center;
-`;
-
-export const AddNewIcon = styled(AddCircleIcon)`
-    width: 50px;
-    height: 50px;
-    margin-top: 60px;
-    cursor: pointer;
 `;

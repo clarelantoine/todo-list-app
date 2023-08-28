@@ -1,23 +1,18 @@
-import { useContext } from 'react';
-import { AddNewIcon, Logo, SidebarContainer } from './sidebar.styles';
+import { Route, Routes } from 'react-router-dom';
+import { Logo, SidebarContainer } from './sidebar.styles';
+import NoteSidebar from '../note-sidebar/note-sidebar.component';
 
-import Filter from '../filter/filter.component';
-import { TaskContext } from '../../contexts/task.context';
+const Sidebar = () => (
+    <SidebarContainer>
+        <Logo>
+            <span>Mulahazati</span>
+        </Logo>
 
-const Sidebar = () => {
-    const { showModal, setShowModal } = useContext(TaskContext);
-
-    return (
-        <SidebarContainer>
-            <Logo>
-                <span>Mulahazati</span>
-            </Logo>
-
-            <AddNewIcon onClick={() => setShowModal(!showModal)} />
-
-            <Filter />
-        </SidebarContainer>
-    );
-};
+        <Routes>
+            <Route path="*" element={<p>Other Sidebar</p>} />
+            <Route path="notes" element={<NoteSidebar />} />
+        </Routes>
+    </SidebarContainer>
+);
 
 export default Sidebar;
