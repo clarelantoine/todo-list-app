@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const NotePreviewContainer = styled.div`
+export const NotesContainer = styled.div`
     display: grid;
     /* grid-template-columns: repeat(4, 1fr); */
     /* grid-template-columns: repeat(auto-fill, minmax(253px, 1fr)); */

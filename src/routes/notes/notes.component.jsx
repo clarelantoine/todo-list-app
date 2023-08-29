@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import NoteCard from '../note-card/note-card.component';
+import NoteCard from '../../components/note-card/note-card.component';
 import { TaskContext } from '../../contexts/task.context';
-import { NotePreviewContainer } from './note-preview.styles.jsx';
+import { NotesContainer } from './notes.styles.jsx';
 
-const NotePreview = () => {
+const Notes = () => {
     // get task and filteredTasks from context
     const { tasks, filteredTasks } = useContext(TaskContext);
 
@@ -21,7 +21,7 @@ const NotePreview = () => {
 
         return <p>You have no task yet...</p>;
     };
-    return <NotePreviewContainer>{displayTasks()}</NotePreviewContainer>;
+    return <NotesContainer>{displayTasks()}</NotesContainer>;
 };
 
-export default NotePreview;
+export default Notes;
