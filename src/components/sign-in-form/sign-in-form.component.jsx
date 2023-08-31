@@ -1,5 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ButtonContainer, SignInContainer, Title } from './sign-in-form.styles';
+import { UserContext } from '../../contexts/user.context';
+import {
+    signInWithGooglePopup,
+    signInWithGoogleRedirect,
+} from '../../utils/firebase/firebase.utils';
 
 const defaultFormFields = {
     email: '',
@@ -7,14 +13,19 @@ const defaultFormFields = {
 };
 
 const SignInForm = () => {
+    const { currentUser, setCurrentUser } = useContext(UserContext);
+
     const [formFields, setFormFields] = useState(defaultFormFields);
 
     // deconstruct formFields state
     const { email, password } = formFields;
 
+    const navigate = useNavigate();
+
     // signin with google button handler
-    const signInWithGoogle = () => {
-        console.log('signin with google');
+    const signInWithGoogle = async () => {
+        await signInWithGooglePopup();
+        // await signInWithGoogleRedirect();
     };
 
     // form fields onChange event handler
@@ -23,16 +34,23 @@ const SignInForm = () => {
         setFormFields({ ...formFields, [name]: value });
     };
 
+    // submit form event handler
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setCurrentUser('clarel');
+        console.log('form submitted');
+    };
+
     useEffect(() => {
-        console.log(formFields);
-    }, [formFields]);
+        currentUser ? navigate('/dashboard') : navigate('/auth');
+    }, [currentUser]);
 
     return (
         <SignInContainer>
             <Title>Already have an account?</Title>
             <span>Sign in with your email and password</span>
 
-            <form>
+            <form onSubmit={handleSubmit}>
                 <input
                     type="email"
                     name="email"

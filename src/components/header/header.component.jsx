@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import LogoImage from '../../assets/images/logo512.png';
 import {
     HeaderContainer,
@@ -5,8 +6,10 @@ import {
     HeaderNavigation,
     HeaderNavigationItem,
 } from './header.styles';
+import { UserContext } from '../../contexts/user.context';
 
 function Header() {
+    const { currentUser } = useContext(UserContext);
     return (
         <HeaderContainer>
             <HeaderLogo to="/">
@@ -19,8 +22,18 @@ function Header() {
                 <span>Mulahazati</span>
             </HeaderLogo>
             <HeaderNavigation>
-                <HeaderNavigationItem to="auth">Login</HeaderNavigationItem>
-                <HeaderNavigationItem to="auth">Sign up</HeaderNavigationItem>
+                {currentUser ? (
+                    <HeaderNavigationItem to="">Logout</HeaderNavigationItem>
+                ) : (
+                    <>
+                        <HeaderNavigationItem to="auth">
+                            Login
+                        </HeaderNavigationItem>
+                        <HeaderNavigationItem to="auth">
+                            Sign up
+                        </HeaderNavigationItem>
+                    </>
+                )}
             </HeaderNavigation>
         </HeaderContainer>
     );

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import {
     AccountIcon,
     ArrowDowntIcon,
@@ -7,7 +7,7 @@ import {
 import { UserContext } from '../../contexts/user.context';
 
 const Greetings = () => {
-    const { isUserDropownOpen, setIsuserDropDownOpen } =
+    const { isUserDropownOpen, setIsuserDropDownOpen, currentUser } =
         useContext(UserContext);
 
     return (
@@ -15,7 +15,7 @@ const Greetings = () => {
             onClick={() => setIsuserDropDownOpen(!isUserDropownOpen)}
         >
             <AccountIcon />
-            <span>Hi, Clarel!</span>
+            <span>Hi, {currentUser ? currentUser.displayName : 'User'}</span>
             <ArrowDowntIcon />
         </GreetingsContainer>
     );
