@@ -1,22 +1,19 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { UserDropDownContainer } from './user-dropdown.styles';
 import { UserContext } from '../../contexts/user.context';
-
-const dropdownVariants = {
-    initial: { opacity: 0, y: -15 },
-    visible: { opacity: 1, y: 0 },
-    exit: {
-        opacity: 0,
-        transition: {
-            duration: 0.1,
-        },
-    },
-};
+import { dropdownVariants } from './user-dropdown.animations';
+import { signOutUser } from '../../utils/firebase/firebase.utils';
 
 const UserDropdown = () => {
     const { isUserDropownOpen } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    const signOutUserHandler = async () => {
+        await signOutUser();
+        navigate('/');
+    };
 
     return (
         <AnimatePresence mode="wait">
@@ -29,7 +26,7 @@ const UserDropdown = () => {
                     exit="exit"
                 >
                     <NavLink to="settings">Account setting</NavLink>
-                    <NavLink to="/">Logout</NavLink>
+                    <NavLink onClick={signOutUserHandler}>Logout</NavLink>
                 </UserDropDownContainer>
             )}
         </AnimatePresence>

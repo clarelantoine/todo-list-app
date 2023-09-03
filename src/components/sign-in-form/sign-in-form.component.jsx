@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ButtonContainer, SignInContainer, Title } from './sign-in-form.styles';
 import { UserContext } from '../../contexts/user.context';
 import {
+    createUserDocumentFromAuth,
     signInWithGooglePopup,
     signInWithGoogleRedirect,
 } from '../../utils/firebase/firebase.utils';
@@ -24,8 +25,14 @@ const SignInForm = () => {
 
     // signin with google button handler
     const signInWithGoogle = async () => {
-        await signInWithGooglePopup();
-        // await signInWithGoogleRedirect();
+        try {
+            const { user } = await signInWithGooglePopup();
+            // await signInWithGoogleRedirect();
+
+            await createUserDocumentFromAuth(user);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     // form fields onChange event handler
