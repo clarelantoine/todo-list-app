@@ -1,12 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ButtonContainer, SignInContainer, Title } from './sign-in-form.styles';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { SignInContainer, Title } from './sign-in-form.styles';
 import { UserContext } from '../../contexts/user.context';
-import {
-    createUserDocumentFromAuth,
-    signInWithGooglePopup,
-    signInWithGoogleRedirect,
-} from '../../utils/firebase/firebase.utils';
+
+import FormInput from '../form-input/form-input.component';
+import ButtonGoogle from '../button-google/button-google.component';
 
 const defaultFormFields = {
     email: '',
@@ -23,18 +21,6 @@ const SignInForm = () => {
 
     const navigate = useNavigate();
 
-    // signin with google button handler
-    const signInWithGoogle = async () => {
-        try {
-            const { user } = await signInWithGooglePopup();
-            // await signInWithGoogleRedirect();
-
-            await createUserDocumentFromAuth(user);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     // form fields onChange event handler
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -49,39 +35,39 @@ const SignInForm = () => {
     };
 
     useEffect(() => {
-        currentUser ? navigate('/dashboard') : navigate('/auth');
+        if (currentUser) navigate('/dashboard');
+        // eslint-disable-next-line
     }, [currentUser]);
 
     return (
         <SignInContainer>
-            <Title>Already have an account?</Title>
-            <span>Sign in with your email and password</span>
-
+            <Title>Log in to Mulahazati</Title>
+            <ButtonGoogle />
+            <span>or</span>
+            {/* <span>Sign in with your email and password</span> */}
             <form onSubmit={handleSubmit}>
-                <input
+                <FormInput
                     type="email"
                     name="email"
-                    placeholder="email"
+                    placeholder="Email"
                     value={email}
                     onChange={handleChange}
                     required
                 />
-                <input
+                <FormInput
                     type="password"
                     name="password"
-                    placeholder="password"
+                    placeholder="Password"
                     value={password}
                     onChange={handleChange}
                     required
                 />
 
-                <ButtonContainer>
-                    <button type="submit">sign in</button>
-                    <button type="button" onClick={signInWithGoogle}>
-                        google sign in
-                    </button>
-                </ButtonContainer>
+                <button type="submit">Log in</button>
             </form>
+            <span>
+                No account? <NavLink to="/signup">Create one</NavLink>
+            </span>
         </SignInContainer>
     );
 };

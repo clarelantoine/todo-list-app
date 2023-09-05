@@ -38,6 +38,7 @@ export const GlobalStyles = createGlobalStyle`
 html {
     background: var(--theme-background-primary);
     color: var(--theme-primary);
+    /* font-family: 'Inter', sans-serif; */
 }
 
 /* html.dark {

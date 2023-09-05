@@ -28,6 +28,6 @@ export const HomeContent = styled.div`
         max-width: 190px;
         text-align: center;
         padding: 15px;
-        border-radius: 30px;
+        border-radius: 10px;
     }
 `;

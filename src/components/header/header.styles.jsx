@@ -40,7 +40,7 @@ export const HeaderNavigationItem = styled(NavLink)`
 
     &:last-child {
         border: 1px solid;
-        border-radius: 50px;
+        border-radius: 10px;
         padding: 5px 20px;
         /* height: 100%; */
     }

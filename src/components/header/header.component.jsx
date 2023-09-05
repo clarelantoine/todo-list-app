@@ -26,10 +26,10 @@ function Header() {
                     <HeaderNavigationItem to="">Logout</HeaderNavigationItem>
                 ) : (
                     <>
-                        <HeaderNavigationItem to="auth">
+                        <HeaderNavigationItem to="signin">
                             Login
                         </HeaderNavigationItem>
-                        <HeaderNavigationItem to="auth">
+                        <HeaderNavigationItem to="signup">
                             Sign up
                         </HeaderNavigationItem>
                     </>

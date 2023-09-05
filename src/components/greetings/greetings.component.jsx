@@ -10,11 +10,17 @@ const Greetings = () => {
     const { isUserDropownOpen, setIsuserDropDownOpen, currentUser } =
         useContext(UserContext);
 
+    console.log(currentUser);
+
     return (
         <GreetingsContainer
             onClick={() => setIsuserDropDownOpen(!isUserDropownOpen)}
         >
-            <AccountIcon />
+            {currentUser && currentUser.photoURL ? (
+                <img src={currentUser.photoURL} alt="user" />
+            ) : (
+                <AccountIcon />
+            )}
             <span>Hi, {currentUser ? currentUser.displayName : 'User'}</span>
             <ArrowDowntIcon />
         </GreetingsContainer>

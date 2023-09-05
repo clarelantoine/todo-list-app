@@ -1,5 +1,5 @@
-import './form-input.styles.scss';
+import { InputField } from './form-input.styles';
 
-const FormInput = (props) => <input {...props} />;
+const FormInput = (props) => <InputField {...props} />;
 
 export default FormInput;

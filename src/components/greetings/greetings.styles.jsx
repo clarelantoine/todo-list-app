@@ -9,6 +9,12 @@ export const GreetingsContainer = styled.div`
     gap: 10px;
     cursor: pointer;
     user-select: none;
+
+    img {
+        width: 25px;
+        height: 25px;
+        border-radius: 50px;
+    }
 `;
 
 export const AccountIcon = styled(AccountCircleIcon)`
