@@ -1,14 +1,16 @@
 import { initializeApp } from 'firebase/app';
 import {
+    createUserWithEmailAndPassword,
     GoogleAuthProvider,
     getAuth,
     signInWithPopup,
     onAuthStateChanged,
     signInWithRedirect,
+    signInWithEmailAndPassword,
     signOut,
 } from 'firebase/auth';
 
-import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import { doc, getDoc, getFirestore, query, setDoc } from 'firebase/firestore';
 
 /** ********************************************
  * firebase app configuration
@@ -49,6 +51,18 @@ export const signInWithGooglePopup = async () =>
 export const signInWithGoogleRedirect = async () =>
     signInWithRedirect(auth, googleProvider);
 
+// sign in with email and password
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+    if (!email || !password) return;
+    return signInWithEmailAndPassword(auth, email, password);
+};
+
+// create user with email and password
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+    if (!email || !password) return;
+    return createUserWithEmailAndPassword(auth, email, password);
+};
+
 /** ********************************************
  * initialize a firestore db instance
  ********************************************* */
@@ -57,13 +71,13 @@ const db = getFirestore();
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
     if (!userAuth) return;
 
-    // create user doc ref
+    // get user document ref
     const userDocRef = doc(db, 'users', userAuth.uid);
 
-    // get user doc ref
+    // read user document
     const userSnapshot = await getDoc(userDocRef);
 
-    // if user data doesn't exist
+    // if user document doesn't exist
     if (!userSnapshot.exists()) {
         const { displayName, email } = userAuth;
         const createdAt = new Date();
@@ -80,9 +94,20 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
         }
     }
 
-    // if user data exist
+    // if user document exist
     return userDocRef;
 };
+
+// TO BE REFACTORED//
+export const getAuthUserDocument = async (userAuth) => {
+    const currentUserDocRef = doc(db, 'users', userAuth.uid);
+    const q = query(currentUserDocRef);
+    const querySnapshot = await getDoc(q);
+    return querySnapshot.data();
+};
+// firebase.database().ref('users/' + uid).once("value", snap => {
+//     console.log(snap.val())
+// })
 
 /** ********************************************
  * sign out auth user

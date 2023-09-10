@@ -5,6 +5,7 @@ import { UserContext } from '../../contexts/user.context';
 
 import FormInput from '../form-input/form-input.component';
 import ButtonGoogle from '../button-google/button-google.component';
+import { signInAuthUserWithEmailAndPassword } from '../../utils/firebase/firebase.utils';
 
 const defaultFormFields = {
     email: '',
@@ -12,7 +13,7 @@ const defaultFormFields = {
 };
 
 const SignInForm = () => {
-    const { currentUser, setCurrentUser } = useContext(UserContext);
+    const { currentUser } = useContext(UserContext);
 
     const [formFields, setFormFields] = useState(defaultFormFields);
 
@@ -28,10 +29,28 @@ const SignInForm = () => {
     };
 
     // submit form event handler
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        setCurrentUser('clarel');
-        console.log('form submitted');
+
+        try {
+            const userAuth = await signInAuthUserWithEmailAndPassword(
+                email,
+                password
+            );
+            console.log('userAuth', userAuth);
+        } catch (error) {
+            // error, account not found
+            if (error.code === 'auth/user-not-found') {
+                // return alert('Oops! Account not found');
+                return alert('Invalid Username or Password!');
+            }
+            // error, account not found
+            if (error.code === 'auth/wrong-password') {
+                return alert('Invalid Username or Password!');
+            }
+            // unknown error
+            console.log(error);
+        }
     };
 
     useEffect(() => {
@@ -49,7 +68,7 @@ const SignInForm = () => {
                 <FormInput
                     type="email"
                     name="email"
-                    placeholder="Email"
+                    placeholder="Username"
                     value={email}
                     onChange={handleChange}
                     required

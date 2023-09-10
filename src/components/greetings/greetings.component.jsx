@@ -7,10 +7,12 @@ import {
 import { UserContext } from '../../contexts/user.context';
 
 const Greetings = () => {
-    const { isUserDropownOpen, setIsuserDropDownOpen, currentUser } =
-        useContext(UserContext);
-
-    console.log(currentUser);
+    const {
+        isUserDropownOpen,
+        setIsuserDropDownOpen,
+        currentUser,
+        currentUserData,
+    } = useContext(UserContext);
 
     return (
         <GreetingsContainer
@@ -21,7 +23,9 @@ const Greetings = () => {
             ) : (
                 <AccountIcon />
             )}
-            <span>Hi, {currentUser ? currentUser.displayName : 'User'}</span>
+            <span>
+                Hi, {currentUser ? currentUserData.displayName : 'User'}
+            </span>
             <ArrowDowntIcon />
         </GreetingsContainer>
     );
