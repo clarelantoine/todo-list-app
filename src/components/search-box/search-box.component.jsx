@@ -1,10 +1,6 @@
 import { useContext } from 'react';
 import { TaskContext } from '../../contexts/task.context';
-import {
-    SearchBoxContainer,
-    SearchBoxIcon,
-    SearchInputField,
-} from './search-box.styles';
+import { SearchBoxContainer, SearchInputField } from './search-box.styles';
 
 const SearchBox = () => {
     // use handler function setSearchStr from the task context

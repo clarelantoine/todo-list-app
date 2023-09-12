@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material';
 import App from './App';
 import { TaskProvider } from './contexts/task.context';
 import { GlobalStyles } from './index.styles.jsx';
@@ -8,14 +9,22 @@ import { UserProvider } from './contexts/user.context';
 
 import reportWebVitals from './reportWebVitals';
 
+const theme = createTheme({
+    typography: {
+        fontFamily: 'Inter, sans-serif',
+    },
+});
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <UserProvider>
             <TaskProvider>
                 <BrowserRouter>
-                    <GlobalStyles />
-                    <App />
+                    <ThemeProvider theme={theme}>
+                        <GlobalStyles />
+                        <App />
+                    </ThemeProvider>
                 </BrowserRouter>
             </TaskProvider>
         </UserProvider>

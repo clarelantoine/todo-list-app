@@ -6,3 +6,8 @@ export const InputField = styled.input`
     height: 50px;
     border: 1px solid; */
 `;
+
+export const FieldGroup = styled.div`
+    display: flex;
+    flex-direction: column;
+`;

@@ -25,7 +25,7 @@ export const SearchInputField = styled(FormInput)`
     width: 254px;
 
     /* display: block; */
-    padding: 18px 4px 18px 40px;
+    padding: 10px 15px 10px 40px;
     background: transparent url(${SeachImage}) no-repeat;
     background-position: 10px center;
     ::placeholder,
