@@ -1,14 +1,12 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SignUpContainer, Title } from './sign-up-form.styles';
 import ButtonGoogle from '../button-google/button-google.component';
 import FormInput from '../form-input/form-input.component';
-import {
-    createAuthUserWithEmailAndPassword,
-    createUserDocumentFromAuth,
-} from '../../utils/firebase/firebase.utils';
+
 import { selectCurrentUser } from '../../store/user/user.selector';
+import { signUpStart } from '../../store/user/user.action';
 
 const defaultFormFields = {
     displayName: '',
@@ -22,20 +20,20 @@ const SignUpForm = () => {
 
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+
     const [formFields, setFormFields] = useState(defaultFormFields);
 
     const { displayName, email, password, confirmPassword } = formFields;
 
-    const resetFormFields = () => {
-        setFormFields(defaultFormFields);
-    };
+    // const resetFormFields = () => setFormFields(defaultFormFields);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value });
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
 
         // check if passwords are matching
@@ -43,38 +41,12 @@ const SignUpForm = () => {
             return alert("Password doesn't match");
         }
 
-        try {
-            // create user auth
-            const { user } = await createAuthUserWithEmailAndPassword(
-                email,
-                password
-            );
-            // create user doc
-            await createUserDocumentFromAuth(user, { displayName });
-            // reset form fields
-            resetFormFields();
-        } catch (error) {
-            // error, email already in use
-            if (error.code === 'auth/email-already-in-use') {
-                return alert('Cannot create user, email already in use');
-            }
-            // error, invalid email address
-            if (error.code === 'auth/invalid-email') {
-                return alert('Invalid email address');
-            }
-            // unknown error
-            console.log('User creation encountered an error', error);
-        }
+        dispatch(signUpStart(email, password, displayName));
     };
 
     useEffect(() => {
-        if (currentUser) navigate('/dashboard');
-        // eslint-disable-next-line
+        if (currentUser) navigate('/dashboard/notes');
     }, [currentUser]);
-
-    useEffect(() => {
-        console.table(formFields);
-    }, [formFields]);
 
     return (
         <SignUpContainer>

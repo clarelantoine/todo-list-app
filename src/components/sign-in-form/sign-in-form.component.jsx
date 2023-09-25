@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { SignInContainer, Title } from './sign-in-form.styles';
+import { useDispatch, useSelector } from 'react-redux';
 
 import FormInput from '../form-input/form-input.component';
 import ButtonGoogle from '../button-google/button-google.component';
-import { signInAuthUserWithEmailAndPassword } from '../../utils/firebase/firebase.utils';
-import {
-    selectCurrentUser,
-    selectUserIsLoading,
-} from '../../store/user/user.selector';
-import Spinner from '../spinner/spinner.component';
+
+import { selectCurrentUser } from '../../store/user/user.selector';
+
+import { emailSignInStart } from '../../store/user/user.action';
+
+import { SignInContainer, Title } from './sign-in-form.styles';
 
 const defaultFormFields = {
     email: '',
@@ -19,7 +18,6 @@ const defaultFormFields = {
 
 const SignInForm = () => {
     const currentUser = useSelector(selectCurrentUser);
-    const isLoading = useSelector(selectUserIsLoading);
 
     const [formFields, setFormFields] = useState(defaultFormFields);
 
@@ -28,6 +26,8 @@ const SignInForm = () => {
 
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+
     // form fields onChange event handler
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -35,37 +35,16 @@ const SignInForm = () => {
     };
 
     // submit form event handler
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-
-        try {
-            const userAuth = await signInAuthUserWithEmailAndPassword(
-                email,
-                password
-            );
-            console.log('userAuth', userAuth);
-        } catch (error) {
-            // error, account not found
-            if (error.code === 'auth/user-not-found') {
-                // return alert('Oops! Account not found');
-                return alert('Invalid Username or Password!');
-            }
-            // error, account not found
-            if (error.code === 'auth/wrong-password') {
-                return alert('Invalid Username or Password!');
-            }
-            // unknown error
-            console.log(error);
-        }
+        dispatch(emailSignInStart(email, password));
     };
 
     useEffect(() => {
         if (currentUser) navigate('/dashboard/notes');
     }, [currentUser]);
 
-    return isLoading ? (
-        <Spinner />
-    ) : (
+    return (
         <SignInContainer>
             <Title>Log in to Mulahazati</Title>
             <ButtonGoogle />

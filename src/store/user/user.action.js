@@ -10,11 +10,30 @@ export const checkUserSession = () =>
 export const googleSignInStart = () =>
     createAction(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START);
 
+export const emailSignInStart = (email, password) =>
+    createAction(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, { email, password });
+
 export const signInSuccess = (user) =>
     createAction(USER_ACTION_TYPES.SIGN_IN_SUCCESS, user);
 
 export const signInFailed = (error) =>
     createAction(USER_ACTION_TYPES.SIGN_IN_FAILED, error);
+
+/**
+ * Sign Up Actions
+ */
+export const signUpStart = (email, password, displayName) =>
+    createAction(USER_ACTION_TYPES.SIGN_UP_START, {
+        email,
+        password,
+        displayName,
+    });
+
+export const signUpSucces = (user, additionalInfo) =>
+    createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, { user, additionalInfo });
+
+export const signUpFailed = (error) =>
+    createAction(USER_ACTION_TYPES.SIGN_UP_FAILED, error);
 
 /**
  * Sign Out Actions

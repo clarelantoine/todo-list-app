@@ -119,10 +119,6 @@ export const signOutUser = async () => signOut(auth);
 /** ********************************************
  * adds an observer for changes to the user's sign-in state
  ********************************************* */
-export const onAuthStateChangedListener = (callback) => {
-    onAuthStateChanged(auth, callback);
-};
-
 export const getCurrentUser = () =>
     new Promise((resolve, reject) => {
         const unsubscribe = onAuthStateChanged(
