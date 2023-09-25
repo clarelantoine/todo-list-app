@@ -7,7 +7,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
 import { TaskProvider } from './contexts/task.context';
 import { GlobalStyles } from './index.styles.jsx';
-import { UserProvider } from './contexts/user.context';
 
 import reportWebVitals from './reportWebVitals';
 import { store, persistor } from './store/store';
@@ -23,16 +22,14 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                <UserProvider>
-                    <TaskProvider>
-                        <BrowserRouter>
-                            <ThemeProvider theme={theme}>
-                                <GlobalStyles />
-                                <App />
-                            </ThemeProvider>
-                        </BrowserRouter>
-                    </TaskProvider>
-                </UserProvider>
+                <TaskProvider>
+                    <BrowserRouter>
+                        <ThemeProvider theme={theme}>
+                            <GlobalStyles />
+                            <App />
+                        </ThemeProvider>
+                    </BrowserRouter>
+                </TaskProvider>
             </PersistGate>
         </Provider>
     </React.StrictMode>

@@ -1,23 +1,13 @@
 import { Icon } from '@iconify/react';
-
-import {
-    createUserDocumentFromAuth,
-    signInWithGooglePopup,
-} from '../../utils/firebase/firebase.utils';
+import { useDispatch } from 'react-redux';
+import { googleSignInStart } from '../../store/user/user.action';
 import { Button } from './button-google.styles';
 
 const ButtonGoogle = () => {
-    // signin with google button handler
-    const signInWithGoogle = async () => {
-        try {
-            const { user } = await signInWithGooglePopup();
-            // await signInWithGoogleRedirect();
+    const dispatch = useDispatch();
 
-            await createUserDocumentFromAuth(user);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // signin with google button handler
+    const signInWithGoogle = () => dispatch(googleSignInStart());
 
     return (
         <Button type="button" onClick={signInWithGoogle}>

@@ -1,11 +1,16 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { SignInContainer, Title } from './sign-in-form.styles';
-import { UserContext } from '../../contexts/user.context';
 
 import FormInput from '../form-input/form-input.component';
 import ButtonGoogle from '../button-google/button-google.component';
 import { signInAuthUserWithEmailAndPassword } from '../../utils/firebase/firebase.utils';
+import {
+    selectCurrentUser,
+    selectUserIsLoading,
+} from '../../store/user/user.selector';
+import Spinner from '../spinner/spinner.component';
 
 const defaultFormFields = {
     email: '',
@@ -13,7 +18,8 @@ const defaultFormFields = {
 };
 
 const SignInForm = () => {
-    const { currentUser } = useContext(UserContext);
+    const currentUser = useSelector(selectCurrentUser);
+    const isLoading = useSelector(selectUserIsLoading);
 
     const [formFields, setFormFields] = useState(defaultFormFields);
 
@@ -54,11 +60,12 @@ const SignInForm = () => {
     };
 
     useEffect(() => {
-        if (currentUser) navigate('/dashboard');
-        // eslint-disable-next-line
+        if (currentUser) navigate('/dashboard/notes');
     }, [currentUser]);
 
-    return (
+    return isLoading ? (
+        <Spinner />
+    ) : (
         <SignInContainer>
             <Title>Log in to Mulahazati</Title>
             <ButtonGoogle />

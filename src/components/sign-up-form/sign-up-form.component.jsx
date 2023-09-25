@@ -1,13 +1,14 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { SignUpContainer, Title } from './sign-up-form.styles';
 import ButtonGoogle from '../button-google/button-google.component';
-import { UserContext } from '../../contexts/user.context';
 import FormInput from '../form-input/form-input.component';
 import {
     createAuthUserWithEmailAndPassword,
     createUserDocumentFromAuth,
 } from '../../utils/firebase/firebase.utils';
+import { selectCurrentUser } from '../../store/user/user.selector';
 
 const defaultFormFields = {
     displayName: '',
@@ -17,7 +18,7 @@ const defaultFormFields = {
 };
 
 const SignUpForm = () => {
-    const { currentUser } = useContext(UserContext);
+    const currentUser = useSelector(selectCurrentUser);
 
     const navigate = useNavigate();
 

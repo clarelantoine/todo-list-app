@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom';
-import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { HomeContainer, HomeContent } from './home.styles';
 import HomeImage from '../../assets/images/home_image.png';
-import { UserContext } from '../../contexts/user.context';
+import { selectCurrentUser } from '../../store/user/user.selector';
 
 const Home = () => {
-    const { currentUser } = useContext(UserContext);
+    const currentUser = useSelector(selectCurrentUser);
 
     return (
         <HomeContainer>

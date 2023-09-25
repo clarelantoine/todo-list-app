@@ -1,32 +1,50 @@
-import { useContext } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
     AccountIcon,
     ArrowDowntIcon,
     GreetingsContainer,
 } from './greetings.styles';
-import { UserContext } from '../../contexts/user.context';
+import { selectCurrentUser } from '../../store/user/user.selector';
+import UserDropdown from '../user-dropdown/user-dropdown.component';
 
 const Greetings = () => {
-    const {
-        isUserDropownOpen,
-        setIsuserDropDownOpen,
-        currentUser,
-        currentUserData,
-    } = useContext(UserContext);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    const currentUser = useSelector(selectCurrentUser);
+
+    const wrapperRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (
+                wrapperRef.current &&
+                !wrapperRef.current.contains(event.target)
+            ) {
+                setIsDropdownOpen(false);
+            }
+        }
+        // Bind the event listener
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            // Unbind the event listener on clean up
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [wrapperRef]);
 
     return (
         <GreetingsContainer
-            onClick={() => setIsuserDropDownOpen(!isUserDropownOpen)}
+            ref={wrapperRef}
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
             {currentUser && currentUser.photoURL ? (
                 <img src={currentUser.photoURL} alt="user" />
             ) : (
                 <AccountIcon />
             )}
-            <span>
-                Hi, {currentUser ? currentUserData.displayName : 'User'}
-            </span>
+            <span>Hi, {currentUser ? currentUser.displayName : 'User'}</span>
             <ArrowDowntIcon />
+            {isDropdownOpen && <UserDropdown />}
         </GreetingsContainer>
     );
 };

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import LogoImage from '../../assets/images/logo512.png';
 import {
     HeaderContainer,
@@ -6,10 +6,16 @@ import {
     HeaderNavigation,
     HeaderNavigationItem,
 } from './header.styles';
-import { UserContext } from '../../contexts/user.context';
+import { selectCurrentUser } from '../../store/user/user.selector';
+import { signOutStart } from '../../store/user/user.action';
 
 function Header() {
-    const { currentUser } = useContext(UserContext);
+    const currentUser = useSelector(selectCurrentUser);
+
+    const dispatch = useDispatch();
+
+    const signOutHandler = () => dispatch(signOutStart());
+
     return (
         <HeaderContainer>
             <HeaderLogo to="/">
@@ -23,7 +29,9 @@ function Header() {
             </HeaderLogo>
             <HeaderNavigation>
                 {currentUser ? (
-                    <HeaderNavigationItem to="">Logout</HeaderNavigationItem>
+                    <HeaderNavigationItem onClick={signOutHandler}>
+                        Logout
+                    </HeaderNavigationItem>
                 ) : (
                     <>
                         <HeaderNavigationItem to="signin">

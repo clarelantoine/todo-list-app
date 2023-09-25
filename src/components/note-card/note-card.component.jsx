@@ -5,7 +5,7 @@ import StarRateIcon from '@mui/icons-material/StarRate';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { TaskContext } from '../../contexts/task.context';
-import { formattedDate } from '../../utils/date.utils';
+import { formatedDate } from '../../utils/date.utils';
 
 import {
     CardActions,
@@ -37,7 +37,7 @@ const NoteCard = ({ task }) => {
             >
                 <p>{description}</p>
                 {createdDate && (
-                    <CardDate>{formattedDate(createdDate)}</CardDate>
+                    <CardDate>{formatedDate(createdDate)}</CardDate>
                 )}
                 <CardActions>
                     <FavoriteButton

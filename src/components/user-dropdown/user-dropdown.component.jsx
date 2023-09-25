@@ -1,34 +1,27 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useContext } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { UserDropDownContainer } from './user-dropdown.styles';
-import { UserContext } from '../../contexts/user.context';
 import { dropdownVariants } from './user-dropdown.animations';
-import { signOutUser } from '../../utils/firebase/firebase.utils';
+import { signOutStart } from '../../store/user/user.action';
 
 const UserDropdown = () => {
-    const { isUserDropownOpen } = useContext(UserContext);
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const signOutUserHandler = async () => {
-        await signOutUser();
-        navigate('/');
-    };
+    const signOutHandler = () => dispatch(signOutStart());
 
     return (
         <AnimatePresence mode="wait">
-            {isUserDropownOpen && (
-                <UserDropDownContainer
-                    as={motion.div}
-                    variants={dropdownVariants}
-                    initial="initial"
-                    animate="visible"
-                    exit="exit"
-                >
-                    <NavLink to="settings">Account setting</NavLink>
-                    <NavLink onClick={signOutUserHandler}>Logout</NavLink>
-                </UserDropDownContainer>
-            )}
+            <UserDropDownContainer
+                as={motion.div}
+                variants={dropdownVariants}
+                initial="initial"
+                animate="visible"
+                exit="exit"
+            >
+                <NavLink to="settings">Account setting</NavLink>
+                <NavLink onClick={signOutHandler}>Logout</NavLink>
+            </UserDropDownContainer>
         </AnimatePresence>
     );
 };
