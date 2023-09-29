@@ -7,7 +7,7 @@ export const AccountSettingContainer = styled.div`
     form {
         display: flex;
         justify-content: space-between;
-        flex-direction: row-reverse;
+        /* flex-direction: row-reverse; */
     }
 `;
 
