@@ -46,3 +46,18 @@ export const signOutSucces = () =>
 
 export const signOutFailed = (error) =>
     createAction(USER_ACTION_TYPES.SIGN_OUT_FAILED, error);
+
+/**
+ * Update Current User Profile Actions
+ */
+export const updateUserProfileStart = (email, displayName) =>
+    createAction(USER_ACTION_TYPES.UPDATE_USER_PROFILE_START, {
+        email,
+        displayName,
+    });
+
+export const updateUserProfileSuccess = (user) =>
+    createAction(USER_ACTION_TYPES.UPDATE_USER_PROFILE_SUCCESS, user);
+
+export const updateUserProfileFailed = (error) =>
+    createAction(USER_ACTION_TYPES.UPDATE_USER_PROFILE_FAILED, error);

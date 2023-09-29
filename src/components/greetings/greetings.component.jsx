@@ -43,7 +43,9 @@ const Greetings = () => {
                 <AccountIcon />
             )}
             <span>Hi, {currentUser ? currentUser.displayName : 'User'}</span>
+
             <ArrowDowntIcon />
+
             {isDropdownOpen && <UserDropdown />}
         </GreetingsContainer>
     );

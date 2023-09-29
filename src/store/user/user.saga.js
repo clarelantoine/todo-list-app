@@ -7,6 +7,8 @@ import {
     signOutSucces,
     signUpFailed,
     signUpSucces,
+    updateUserProfileFailed,
+    updateUserProfileSuccess,
 } from './user.action';
 import {
     createAuthUserWithEmailAndPassword,
@@ -15,6 +17,7 @@ import {
     signInAuthUserWithEmailAndPassword,
     signInWithGooglePopup,
     signOutUser,
+    updateCurrentUserDocument,
 } from '../../utils/firebase/firebase.utils';
 import { USER_ACTION_TYPES } from './user.types';
 
@@ -107,6 +110,36 @@ export function* signOut() {
 }
 
 /**
+ * Update User Profile Sagas
+ */
+export function* updateUserProfile({ payload: { displayName } }) {
+    try {
+        const userAuth = yield call(getCurrentUser);
+
+        if (!userAuth) {
+            yield put(signOutStart());
+            return;
+        }
+
+        const userUpdatedSnapshot = yield call(
+            updateCurrentUserDocument,
+            userAuth,
+            { displayName }
+        );
+
+        yield put(
+            updateUserProfileSuccess({
+                id: userUpdatedSnapshot.id,
+                ...userUpdatedSnapshot.data(),
+            })
+        );
+        console.log(userAuth);
+    } catch (error) {
+        yield put(updateUserProfileFailed(error));
+    }
+}
+
+/**
  * Saga Entries
  */
 
@@ -134,6 +167,13 @@ export function* onSignOutStart() {
     yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut);
 }
 
+export function* onUpdateUserProfileStart() {
+    yield takeLatest(
+        USER_ACTION_TYPES.UPDATE_USER_PROFILE_START,
+        updateUserProfile
+    );
+}
+
 export function* userSaga() {
     yield all([
         call(onCheckUserSession),
@@ -142,5 +182,6 @@ export function* userSaga() {
         call(onSignUpStart),
         call(onSignUpSuccess),
         call(onSignOutStart),
+        call(onUpdateUserProfileStart),
     ]);
 }

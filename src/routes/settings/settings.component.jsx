@@ -1,54 +1,49 @@
 // import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 import * as Styled from './settings.styles';
 import FormInput from '../../components/form-input/form-input.component';
-
-// const defaultFormFields = {
-//     firstName: '',
-//     lastName: '',
-//     displayName: '',
-//     email: '',
-// };
+import { selectCurrentUser } from '../../store/user/user.selector';
+import { updateUserProfileStart } from '../../store/user/user.action';
 
 const Settings = () => {
-    // const [formFields, setFormFields] = useState(defaultFormFields);
+    const currrentUser = useSelector(selectCurrentUser);
 
-    const handleChange = () => {};
+    const [formFields, setFormFields] = useState(currrentUser);
 
-    const handleSubmit = () => {};
+    const { email, displayName } = formFields;
+
+    const dispatch = useDispatch();
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormFields({ ...formFields, [name]: value });
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.table(formFields);
+        dispatch(updateUserProfileStart(email, displayName));
+    };
+
+    // useEffect(() => {
+    //     console.table(formFields);
+    // }, [formFields]);
 
     return (
         <Styled.AccountSettingContainer>
             <form onSubmit={handleSubmit}>
-                <Styled.LeftWrapper>
+                {/* <Styled.LeftWrapper>
                     <span>Profile picture</span>
                     <Styled.AvatarImage />
-                </Styled.LeftWrapper>
+                </Styled.LeftWrapper> */}
                 <Styled.RightWrapper>
-                    <div>
-                        <FormInput
-                            label="First Name"
-                            placeholder="First Name"
-                            name="firstName"
-                            onChange={handleChange}
-                        />
-                        <FormInput
-                            label="Last Name"
-                            placeholder="Last Name"
-                            name="lastName"
-                            onChange={handleChange}
-                        />
-                    </div>
                     <FormInput
                         label="Display Name"
                         placeholder="Display Name"
                         name="displayName"
                         onChange={handleChange}
-                    />
-                    <FormInput
-                        label="Email Address"
-                        placeholder="Email Address"
-                        name="email"
-                        onChange={handleChange}
+                        value={displayName}
                     />
 
                     <button type="submit">Save</button>
@@ -61,9 +56,9 @@ const Settings = () => {
 export default Settings;
 
 /**
- * first name
- * last name
- * display name
- * email address
+ * photoUrl
+ * displayName
+ * email
+ * password (tbc)
  *
  */

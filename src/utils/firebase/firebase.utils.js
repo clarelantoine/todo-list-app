@@ -10,7 +10,14 @@ import {
     signOut,
 } from 'firebase/auth';
 
-import { doc, getDoc, getFirestore, query, setDoc } from 'firebase/firestore';
+import {
+    doc,
+    getDoc,
+    getFirestore,
+    query,
+    setDoc,
+    updateDoc,
+} from 'firebase/firestore';
 
 /** ********************************************
  * firebase app configuration
@@ -41,6 +48,11 @@ const googleProvider = new GoogleAuthProvider();
 const auth = getAuth();
 
 /** ********************************************
+ * initialize a firestore db instance
+ ********************************************* */
+const db = getFirestore();
+
+/** ********************************************
  * authentication flow
  ********************************************* */
 // google popup
@@ -62,11 +74,6 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
     if (!email || !password) return;
     return createUserWithEmailAndPassword(auth, email, password);
 };
-
-/** ********************************************
- * initialize a firestore db instance
- ********************************************* */
-const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
     if (!userAuth) return;
@@ -92,10 +99,10 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
         } catch (error) {
             console.log('error creating the user', error.message);
         }
-    }
 
-    // get updated snaphot
-    userSnapshot = await getDoc(userDocRef);
+        // get updated snaphot
+        userSnapshot = await getDoc(userDocRef);
+    }
 
     return userSnapshot;
 };
@@ -117,7 +124,7 @@ export const getAuthUserDocument = async (userAuth) => {
 export const signOutUser = async () => signOut(auth);
 
 /** ********************************************
- * adds an observer for changes to the user's sign-in state
+ * observer to get current auth user
  ********************************************* */
 export const getCurrentUser = () =>
     new Promise((resolve, reject) => {
@@ -130,3 +137,24 @@ export const getCurrentUser = () =>
             reject
         );
     });
+
+/** ********************************************
+ * update current user profile
+ ********************************************* */
+
+// update user document
+export const updateCurrentUserDocument = async (userAuth, updatedData) => {
+    if (!userAuth) return;
+
+    const userDocRef = doc(db, 'users', userAuth.uid);
+
+    try {
+        await updateDoc(userDocRef, { ...updatedData });
+    } catch (error) {
+        console.log('Error updating user document:', error);
+    }
+
+    const updatedUserSnapshot = await getDoc(userDocRef);
+
+    return updatedUserSnapshot;
+};
