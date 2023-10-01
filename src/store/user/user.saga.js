@@ -11,16 +11,21 @@ import {
     updateUserProfileSuccess,
 } from './user.action';
 import {
-    createAuthUserWithEmailAndPassword,
-    createUserDocumentFromAuth,
-    getCurrentUser,
-    signInAuthUserWithEmailAndPassword,
-    signInWithGooglePopup,
     signOutUser,
-    updateCurrentUserDocument,
+    getCurrentUser,
+    signInWithGooglePopup,
+    createAuthUserWithEmailAndPassword,
+    signInAuthUserWithEmailAndPassword,
 } from '../../utils/firebase/firebase.utils';
+
+import {
+    updateCurrentUserDocument,
+    createUserDocumentFromAuth,
+} from '../../utils/firebase/firestore.utils';
+
 import { USER_ACTION_TYPES } from './user.types';
 
+// Get authenticated user's snapshot
 export function* getSnapshotFromUserAuth(userAuth, additionalInfo) {
     try {
         const userSnapshot = yield call(
@@ -30,29 +35,26 @@ export function* getSnapshotFromUserAuth(userAuth, additionalInfo) {
         );
 
         yield put(
-            signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
+            signInSuccess({
+                id: userSnapshot.id,
+                ...userSnapshot.data(),
+            })
         );
     } catch (error) {
         yield put(signInFailed(error));
     }
 }
 
+// Check authenticated user
 export function* isUserAuthenticated() {
     try {
         const userAuth = yield call(getCurrentUser);
-        if (!userAuth) {
-            yield put(signOutStart());
-            return;
-        }
         yield call(getSnapshotFromUserAuth, userAuth);
     } catch (error) {
-        yield put(signInFailed(error));
+        console.log(error);
+        yield put(signOutStart());
     }
 }
-
-/**
- * Sign In Sagas
- */
 
 // google sign in
 export function* signInWithGoogle() {
@@ -63,6 +65,7 @@ export function* signInWithGoogle() {
         yield put(signInFailed(error));
     }
 }
+
 // email & password sign in
 export function* signInWithEmail({ payload: { email, password } }) {
     try {
@@ -77,9 +80,7 @@ export function* signInWithEmail({ payload: { email, password } }) {
     }
 }
 
-/**
- * Sign Up Sagas
- */
+// Sign up
 export function* signUp({ payload: { email, password, displayName } }) {
     try {
         const { user } = yield call(
@@ -176,12 +177,12 @@ export function* onUpdateUserProfileStart() {
 
 export function* userSaga() {
     yield all([
-        call(onCheckUserSession),
-        call(onGoogleSignInStart),
-        call(onEmailSignInStart),
         call(onSignUpStart),
-        call(onSignUpSuccess),
         call(onSignOutStart),
+        call(onSignUpSuccess),
+        call(onCheckUserSession),
+        call(onEmailSignInStart),
+        call(onGoogleSignInStart),
         call(onUpdateUserProfileStart),
     ]);
 }

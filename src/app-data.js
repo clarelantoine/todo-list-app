@@ -1,6 +1,17 @@
 export const APP_DATA = {
     name: 'Mulahazati',
-    author: 'Clarel Antoine',
+    author: {
+        name: 'clarel Antoine',
+        initial: 'CA',
+        website: 'http://clarel-antoine.com',
+    },
+    navigation: {
+        home: '/',
+        notes: '/dashboard/notes',
+        setting: '/dashboard/settings',
+        signin: '/signin',
+        signup: '/signup',
+    },
     categories: [
         {
             id: '#B9FBC0',

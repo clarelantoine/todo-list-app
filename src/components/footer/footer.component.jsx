@@ -1,3 +1,4 @@
+import { APP_DATA } from '../../app-data';
 import { FooterContainer } from './footer.styles';
 
 const Footer = () => (
@@ -5,12 +6,8 @@ const Footer = () => (
         <span>{`Copyright © ${new Date().getFullYear()}`}</span>
         <span>
             Developed by{' '}
-            <a
-                href="https://clarelantoine.com"
-                target="_blank"
-                rel="noreferrer"
-            >
-                CA.
+            <a href={APP_DATA.author.website} target="_blank" rel="noreferrer">
+                {APP_DATA.author.initial}.
             </a>
         </span>
     </FooterContainer>

@@ -10,6 +10,8 @@ import { selectCurrentUser } from '../../store/user/user.selector';
 import { emailSignInStart } from '../../store/user/user.action';
 
 import { SignInContainer, Title } from './sign-in-form.styles';
+import Button from '../button/button.component';
+import { APP_DATA } from '../../app-data';
 
 const defaultFormFields = {
     email: '',
@@ -68,10 +70,11 @@ const SignInForm = () => {
                     required
                 />
 
-                <button type="submit">Log in</button>
+                <Button type="submit">Log in</Button>
             </form>
             <span>
-                No account? <NavLink to="/signup">Create one</NavLink>
+                No account?{' '}
+                <NavLink to={APP_DATA.navigation.signup}>Create one</NavLink>
             </span>
         </SignInContainer>
     );

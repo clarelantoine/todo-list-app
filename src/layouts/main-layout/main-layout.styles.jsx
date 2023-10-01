@@ -7,7 +7,7 @@ export const MainLayoutContainer = styled.div`
     max-width: 1440px;
     margin: auto;
     min-height: 100vh;
-    padding: 59px;
+    padding: 30px 0;
 
     .content {
         margin: 100px 0;

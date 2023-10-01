@@ -5,6 +5,7 @@ import * as Styled from './settings.styles';
 import FormInput from '../../components/form-input/form-input.component';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { updateUserProfileStart } from '../../store/user/user.action';
+import Button from '../../components/button/button.component';
 
 const Settings = () => {
     const currrentUser = useSelector(selectCurrentUser);
@@ -46,7 +47,8 @@ const Settings = () => {
                         value={displayName}
                     />
 
-                    <button type="submit">Save</button>
+                    {/* <button type="submit">Save</button> */}
+                    <Button type="submit">Save</Button>
                 </Styled.RightWrapper>
             </form>
         </Styled.AccountSettingContainer>

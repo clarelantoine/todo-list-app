@@ -19,9 +19,9 @@ export const RightWrapper = styled.div`
     gap: 20px;
 
     div {
-        display: flex;
+        /* display: flex; */
         gap: 15px;
-        width: 100%;
+        /* width: 100%; */
     }
 
     input {

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { HomeContainer, HomeContent } from './home.styles';
 import HomeImage from '../../assets/images/home_image.png';
 import { selectCurrentUser } from '../../store/user/user.selector';
+import { APP_DATA } from '../../app-data';
 
 const Home = () => {
     const currentUser = useSelector(selectCurrentUser);
@@ -19,7 +20,11 @@ const Home = () => {
 
                 <NavLink
                     className="home-cta"
-                    to={currentUser ? 'dashboard/notes' : 'signin'}
+                    to={
+                        currentUser
+                            ? APP_DATA.navigation.notes
+                            : APP_DATA.navigation.signin
+                    }
                 >
                     Try it for free
                 </NavLink>

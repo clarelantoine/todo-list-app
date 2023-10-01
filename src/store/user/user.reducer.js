@@ -12,7 +12,6 @@ export const userReducer = (state = INITIAL_STATE, action) => {
     const { type, payload } = action;
 
     switch (type) {
-        case USER_ACTION_TYPES.CHECK_USER_SESSION:
         case USER_ACTION_TYPES.UPDATE_USER_PROFILE_START:
         case USER_ACTION_TYPES.GOOGLE_SIGN_IN_START:
         case USER_ACTION_TYPES.EMAIL_SIGN_IN_START:

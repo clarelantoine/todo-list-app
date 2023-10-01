@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
     display: flex;
-    justify-content: space-between;
     height: 30px;
     position: relative;
 `;
 
 export const HeaderLogo = styled(NavLink)`
+    width: 225px;
     display: flex;
     gap: 10px;
 
@@ -20,8 +20,34 @@ export const HeaderLogo = styled(NavLink)`
     }
 `;
 
+export const HeaderRight = styled.div`
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+
+    .left-nav-links {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+
+        .active {
+            position: relative;
+            &::after {
+                content: '';
+                width: 100%;
+                height: 1px;
+                position: absolute;
+                background: var(--theme-primary);
+                left: 0;
+                bottom: -5px;
+            }
+        }
+    }
+`;
+
 export const HeaderNavigation = styled.nav`
     display: flex;
+    margin-left: auto;
     align-items: center;
     gap: 20px;
 

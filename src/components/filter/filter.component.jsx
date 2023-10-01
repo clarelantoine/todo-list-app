@@ -17,4 +17,3 @@ const Filter = () => {
 };
 
 export default Filter;
-// tasks.find((obj) => obj.categoryId === task.categoryId)

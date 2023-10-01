@@ -7,6 +7,8 @@ import FormInput from '../form-input/form-input.component';
 
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { signUpStart } from '../../store/user/user.action';
+import Button from '../button/button.component';
+import { APP_DATA } from '../../app-data';
 
 const defaultFormFields = {
     displayName: '',
@@ -45,7 +47,7 @@ const SignUpForm = () => {
     };
 
     useEffect(() => {
-        if (currentUser) navigate('/dashboard/notes');
+        if (currentUser) navigate(APP_DATA.navigation.notes);
     }, [currentUser]);
 
     return (
@@ -90,10 +92,11 @@ const SignUpForm = () => {
                     required
                 />
 
-                <button type="submit">sign up</button>
+                <Button type="submit">sign up</Button>
             </form>
             <span>
-                Already have an account? <NavLink to="/signin">Log in</NavLink>
+                Already have an account?{' '}
+                <NavLink to={APP_DATA.navigation.signin}>Log in</NavLink>
             </span>
         </SignUpContainer>
     );

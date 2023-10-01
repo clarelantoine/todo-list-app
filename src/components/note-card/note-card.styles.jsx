@@ -45,7 +45,7 @@ export const CloseButton = styled(CloseIcon)`
 // card container
 export const NoteCardContainer = styled.div`
     background: ${({ $bgColor }) => $bgColor};
-    height: 250px;
+    height: 260px;
     border-radius: 15px;
     position: relative;
     padding: 35px 30px;

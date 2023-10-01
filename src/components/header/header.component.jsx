@@ -1,49 +1,58 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import LogoImage from '../../assets/images/logo512.png';
-import {
-    HeaderContainer,
-    HeaderLogo,
-    HeaderNavigation,
-    HeaderNavigationItem,
-} from './header.styles';
+import * as Styled from './header.styles';
 import { selectCurrentUser } from '../../store/user/user.selector';
-import { signOutStart } from '../../store/user/user.action';
+import Greetings from '../greetings/greetings.component';
+import { APP_DATA } from '../../app-data';
 
 function Header() {
     const currentUser = useSelector(selectCurrentUser);
 
-    const dispatch = useDispatch();
-
-    const signOutHandler = () => dispatch(signOutStart());
-
     return (
-        <HeaderContainer>
-            <HeaderLogo to="/">
+        <Styled.HeaderContainer>
+            <Styled.HeaderLogo to={APP_DATA.navigation.home}>
                 <img
                     src={LogoImage}
-                    alt="Mulahazati logo"
+                    alt={APP_DATA.name}
                     width="30"
                     height="30"
                 />
-                <span>Mulahazati</span>
-            </HeaderLogo>
-            <HeaderNavigation>
-                {currentUser ? (
-                    <HeaderNavigationItem onClick={signOutHandler}>
-                        Logout
-                    </HeaderNavigationItem>
-                ) : (
-                    <>
-                        <HeaderNavigationItem to="signin">
-                            Login
-                        </HeaderNavigationItem>
-                        <HeaderNavigationItem to="signup">
-                            Sign up
-                        </HeaderNavigationItem>
-                    </>
+                <span>{APP_DATA.name}</span>
+            </Styled.HeaderLogo>
+
+            <Styled.HeaderRight>
+                {currentUser && (
+                    <div className="left-nav-links">
+                        <NavLink to={APP_DATA.navigation.notes}>
+                            My Notes
+                        </NavLink>
+                        <NavLink to={APP_DATA.navigation.setting}>
+                            Account Setting
+                        </NavLink>
+                    </div>
                 )}
-            </HeaderNavigation>
-        </HeaderContainer>
+
+                <Styled.HeaderNavigation>
+                    {currentUser ? (
+                        <Greetings />
+                    ) : (
+                        <>
+                            <Styled.HeaderNavigationItem
+                                to={APP_DATA.navigation.signin}
+                            >
+                                Login
+                            </Styled.HeaderNavigationItem>
+                            <Styled.HeaderNavigationItem
+                                to={APP_DATA.navigation.signup}
+                            >
+                                Sign up
+                            </Styled.HeaderNavigationItem>
+                        </>
+                    )}
+                </Styled.HeaderNavigation>
+            </Styled.HeaderRight>
+        </Styled.HeaderContainer>
     );
 }
 
